@@ -29,11 +29,8 @@ jobs:
           DAY=$(date +'%d')
           REV=$(printf "%02d" ${{ github.run_number }})
           VERSION="$YEAR.$MONTH.$DAY.$REV"
-          RESHARPER_VERSION="$YEAR.$MONTH.$DAY.${{ github.run_number }}"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "RESHARPER_VERSION=$RESHARPER_VERSION" >> $GITHUB_ENV
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "RESHARPER_VERSION=$RESHARPER_VERSION" >> $GITHUB_OUTPUT          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT          
         shell: bash
 
       - name: update version (gradle & plugin.xml)
@@ -80,4 +77,4 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: mediator.resharper.${{ env.VERSION }}
-          path: src/dotnet/MediatorPlugin/bin/MediatorPlugin/Debug/ca.nosuchcompany.mediatrplugin.${{ env.RESHARPER_VERSION }}.nupkg
+          path: src/dotnet/MediatorPlugin/bin/MediatorPlugin/Debug/*.nupkg
