@@ -52,5 +52,15 @@ jobs:
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build with Gradle
+      - name: build
         run: ./gradlew :prepareSandbox -PPluginVersion=${{ env.VERSION }}
+
+      - name: copy files
+        shell: bash
+        run: |
+          mkdir plugin
+          cp build/libs/mediatr-${{ env.VERSION }}.jar plugin/rider/mediator/lib
+          cp build/resources/main/META-INF/plugin.xml plugin/rider/mediator/META-INF
+          cp pluginIcon.svg plugin/rider/mediator/META-INF
+          cp src/dotnet/MediatorPlugin/bin/MediatorPlugin.Rider/Debug/MediatorPlugin.dll plugin/rider/mediator/dotnet
+          zip -r mediator.${{ env.VERSION }}.zip /rider/mediator/
