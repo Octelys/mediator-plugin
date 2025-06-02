@@ -55,7 +55,7 @@ jobs:
       - name: build
         run: ./gradlew :prepareSandbox -PPluginVersion=${{ env.VERSION }}
 
-      - name: copy files
+      - name: setup rider plugin
         shell: bash
         run: |
           mkdir -p publish/rider/mediator/lib
@@ -77,4 +77,4 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: mediator.resharper.${{ env.VERSION }}
-          path: src/dotnet/MediatorPlugin/bin/MediatorPlugin/Debug/MediatorPlugin.nupkg
+          path: src/dotnet/MediatorPlugin/bin/MediatorPlugin/Debug/ca.nosuchcompany.mediatrplugin.$(date +'%y').$(date +'%m').$(date +'%d').${{ github.run_number }}.nupkg
