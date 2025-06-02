@@ -22,6 +22,17 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
+      - name: set version number
+        run: |
+          YEAR=$(date +'%y')
+          MONTH=$(date +'%m')
+          DAY=$(date +'%d')
+          REV=$(printf "%02d" ${{ github.run_number }})
+          VERSION="$YEAR.$MONTH.$DAY.$REV"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        shell: bash
+
       - name: install .NET SDK
         uses: actions/setup-dotnet@v3
         with:
@@ -33,3 +44,9 @@ jobs:
           java-version: 17
           architecture: 'x64'
           distribution: 'oracle'
+
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build with Gradle
+        run: ./gradlew :prepareSandbox -PPluginVersion=${{ env.VERSION }}
