@@ -33,7 +33,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
         shell: bash
 
-      - name: pdate version (gradle & plugin.xml)
+      - name: update version (gradle & plugin.xml)
         shell: bash
         run: ./update-version.sh ${{ env.VERSION }}
 
@@ -58,7 +58,9 @@ jobs:
       - name: copy files
         shell: bash
         run: |
-          mkdir plugin
+          mkdir -p plugin/rider/mediator/lib
+          mkdir -p plugin/rider/mediator/META-INF
+          mkdir -p plugin/rider/mediator/dotnet
           cp build/libs/mediatr-${{ env.VERSION }}.jar plugin/rider/mediator/lib
           cp build/resources/main/META-INF/plugin.xml plugin/rider/mediator/META-INF
           cp pluginIcon.svg plugin/rider/mediator/META-INF
