@@ -33,6 +33,10 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
         shell: bash
 
+      - name: pdate version (gradle & plugin.xml)
+        shell: bash
+        run: ./update-version.sh ${{ env.VERSION }}
+
       - name: install .NET SDK
         uses: actions/setup-dotnet@v3
         with:
