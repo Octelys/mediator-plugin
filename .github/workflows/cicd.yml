@@ -58,11 +58,23 @@ jobs:
       - name: copy files
         shell: bash
         run: |
-          mkdir -p plugin/rider/mediator/lib
-          mkdir -p plugin/rider/mediator/META-INF
-          mkdir -p plugin/rider/mediator/dotnet
-          cp build/libs/mediatr-${{ env.VERSION }}.jar plugin/rider/mediator/lib
-          cp build/resources/main/META-INF/plugin.xml plugin/rider/mediator/META-INF
-          cp pluginIcon.svg plugin/rider/mediator/META-INF
-          cp src/dotnet/MediatorPlugin/bin/MediatorPlugin.Rider/Debug/MediatorPlugin.dll plugin/rider/mediator/dotnet
-          zip -r mediator.${{ env.VERSION }}.zip /rider/mediator/
+          mkdir -p publish/rider/mediator/lib
+          mkdir -p publish/rider/mediator/META-INF
+          mkdir -p publish/rider/mediator/dotnet
+          cp build/libs/mediatr-${{ env.VERSION }}.jar publish/rider/mediator/lib
+          cp build/resources/main/META-INF/plugin.xml publish/rider/mediator/META-INF
+          cp pluginIcon.svg publish/rider/mediator/META-INF
+          cp src/dotnet/MediatorPlugin/bin/MediatorPlugin.Rider/Debug/MediatorPlugin.dll publish/rider/mediator/dotnet
+          zip -r publish/mediator.${{ env.VERSION }}.zip publish/rider/mediator/
+
+      - name: publish rider plugin
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: mediator.rider.${{ env.VERSION }}
+          path: publish/mediator.${{ env.VERSION }}.zip
+
+      - name: publish resharper plugin
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: mediator.resharper.${{ env.VERSION }}
+          path: src/dotnet/MediatorPlugin/bin/MediatorPlugin/Debug/MediatorPlugin.nupkg
