@@ -1,1 +1,41 @@
+name: build
 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      runs_on:
+        required: false
+        type: string
+        default: 'ubuntu-latest'
+        description: 'Runner to use for the job'
+
+jobs:
+  build:
+    runs-on: ${{ inputs.runs_on || 'ubuntu-latest' }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: './global.json'
+
+      - name: cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: restore
+        shell: bash
+        run: |
+          dotnet restore --configfile ./NuGet.config --packages ~/.nuget/packages
