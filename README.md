@@ -56,4 +56,3 @@ If you're using this in your own workflow, we’d love to hear about it.
 📦 JetBrains Marketplace:
 - [Rider Plugin](https://plugins.jetbrains.com/plugin/18313-mediatr-extensions)
 - [ReSharper Plugin](https://plugins.jetbrains.com/plugin/18347-mediatr-extensions)
-```
