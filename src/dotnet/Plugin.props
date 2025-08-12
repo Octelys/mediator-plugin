@@ -1,18 +1,18 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <SdkVersion>2025.2.0-eap01</SdkVersion>
+    <SdkVersion>2025.2.0-rc2</SdkVersion>
 
     <Title>Mediator Extensions</Title>
     <Description>Ever got frustrated to find out where was the handler of a Mediator's IRequest or INotification? Say no more. This plugin provides a context action to easily reach the handler of any mediator request. Select your mediator request, click on that action and boom you will be automatically transported to the appropriate handler.</Description>
 
-    <Authors>Drifting Bytes Labs</Authors>
+    <Authors>Octelys</Authors>
     <Copyright></Copyright>
     <PackageTags>mediatr</PackageTags>
 
-    <PackageProjectUrl>https://github.com/kzryzstof/mediatr-plugin</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Octelys/mediator-plugin</PackageProjectUrl>
     <PackageLicenseUrl>https://www.gnu.org/licenses/lgpl-3.0.en.html</PackageLicenseUrl>
-    <PackageIconUrl>https://github.com/kzryzstof/mediatr-plugin/blob/04462c921d284915b773feb1844821ce9ac82091/public/icon.png</PackageIconUrl>
+    <PackageIconUrl>https://github.com/Octelys/mediator-plugin/blob/04462c921d284915b773feb1844821ce9ac82091/public/icon.png</PackageIconUrl>
   </PropertyGroup>
 
 </Project>
