@@ -36,6 +36,10 @@
     <Compile Remove="bin\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\..\public\icon.png" Pack="true" PackagePath="Icon.png" />
+  </ItemGroup>
+
   <!-- WARNING: ReSharper plugins with icons must be compiled using PowerShell scripts -->
   <!-- TODO: uncomment for xaml icons -->
   <!--<ItemGroup>-->
