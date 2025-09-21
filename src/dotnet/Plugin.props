@@ -12,7 +12,7 @@
 
     <PackageProjectUrl>https://github.com/Octelys/mediator-plugin</PackageProjectUrl>
     <PackageLicenseUrl>https://www.gnu.org/licenses/lgpl-3.0.en.html</PackageLicenseUrl>
-    <PackageIconUrl>https://github.com/Octelys/mediator-plugin/blob/01c611ffcf0376d9f40b8b3f10160f6d6331e403/public/octelys-mediator.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Octelys/mediator-plugin/refs/heads/main/public/octelys-mediator.png</PackageIconUrl>
   </PropertyGroup>
 
 </Project>
