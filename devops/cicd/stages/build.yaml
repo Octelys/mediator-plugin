@@ -27,9 +27,9 @@ stages:
         
         steps:
           - task: UseDotNet@2
-            displayName: 'install .net 6.0 SDK'
+            displayName: 'install .net 9.0 SDK'
             inputs:
-              version: 6.x
+              version: 9.x
   
           - task: JavaToolInstaller@0
             displayName: 'install java'
