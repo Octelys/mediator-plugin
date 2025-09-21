@@ -14,6 +14,82 @@ Boost your navigation superpowers in Rider and ReSharper with this plugin for Me
 
 ---
 
+## 🏗️ Plugin Architecture
+
+### System Overview
+
+```mermaid
+graph TB
+    subgraph "IDE Integration Layer"
+        A1[Rider Action<br/>GoToHandlrAction.kt]
+        A2[ReSharper Provider<br/>MediatorRequestNavigateFromHereProvider.cs]
+    end
+    
+    subgraph "Core Navigation Engine"
+        B1[HandlerSelector<br/>Service]
+        B2[Navigation<br/>Coordinator]
+    end
+    
+    subgraph "Library Abstraction Layer"
+        C1[ILibrary<br/>Interface]
+        C2[MediatRLibrary<br/>Implementation]
+        C3[MediatorLibrary<br/>Implementation]
+    end
+    
+    subgraph "External Libraries"
+        D1[MediatR<br/>NuGet Package]
+        D2[Mediator<br/>NuGet Package]
+    end
+    
+    A1 --> B1
+    A2 --> B1
+    B1 --> B2
+    B2 --> C1
+    C1 --> C2
+    C1 --> C3
+    C2 -.-> D1
+    C3 -.-> D2
+```
+
+### How It Works
+
+#### Entry Points
+The plugin provides two main entry points for navigation:
+
+1. **Rider Integration** (`GoToHandlrAction.kt`): A Kotlin-based action that integrates with Rider's action system
+2. **ReSharper Integration** (`MediatorRequestNavigateFromHereProvider.cs`): A C# provider that adds "Go to handler" to ReSharper's context navigation
+
+#### High-Level Workflow
+
+1. **Detection**: User right-clicks on an `IRequest` or `INotification` interface
+2. **Context Analysis**: Plugin identifies the selected element and validates it's a mediator request/notification
+3. **Library Resolution**: Determines whether the project uses MediatR or Mediator library
+4. **Handler Discovery**: Searches the solution for corresponding `IRequestHandler` or `INotificationHandler` implementations
+5. **Navigation**: Opens the handler class in the editor
+
+#### Library Abstraction
+
+The plugin uses a sophisticated abstraction layer to support both MediatR and Mediator libraries:
+
+**Common Interface (`ILibrary`)**:
+- `FindHandlers()`: Locates handler implementations for a given request/notification
+- `IsSupported()`: Determines if the library can handle the current context
+- `CreateHandlrFor()`: Generates new handler classes (code generation feature)
+
+**MediatR Support**:
+- Handles `MediatR.IBaseRequest` and `MediatR.INotification`
+- Supports `IRequestHandler<T>`, `IRequestHandler<T,TResponse>`, and `INotificationHandler<T>`
+- Full integration with MediatR's interface contracts
+
+**Mediator Support**:
+- Handles `Mediator.IBaseRequest` and `Mediator.INotification`  
+- Supports the same handler patterns as MediatR but for the Mediator library
+- Provides identical functionality with different underlying type system
+
+This abstraction allows the plugin to work seamlessly with both libraries without requiring users to configure which one they're using—the plugin automatically detects and adapts to the project's mediator implementation.
+
+---
+
 ## 🖥️ How to Run
 
 ### 🪟 Windows
@@ -44,7 +120,7 @@ The MediatR extension should appear as version `9999.0`.
 ./gradlew :runIde
 ```
 
-
+>-->
 
 ---
 
