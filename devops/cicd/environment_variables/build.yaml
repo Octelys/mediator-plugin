@@ -1,3 +1,0 @@
-variables:
-  - name: jetbrainsNugetName
-    value: 'Jetbrains - ReSharper Plugin Repository'
