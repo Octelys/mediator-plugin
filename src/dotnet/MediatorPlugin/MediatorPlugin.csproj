@@ -10,6 +10,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>ReSharper.MediatorPlugin</RootNamespace>
     <AssemblyName>MediatorPlugin</AssemblyName>
+    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
@@ -33,6 +34,10 @@
     <None Remove="bin\**" />
     <EmbeddedResource Remove="bin\**" />
     <Compile Remove="bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\public\icon.png" Pack="true" PackagePath="Icon.png" />
   </ItemGroup>
 
   <!-- WARNING: ReSharper plugins with icons must be compiled using PowerShell scripts -->
