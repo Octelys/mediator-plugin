@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using ReSharper.MediatorPlugin.Services.Create;
@@ -12,8 +13,13 @@ internal sealed class MediatRLibrary : Library
     private const string MediatrBaseRequestFullyQualifiedName = $"{MediatrModuleName}.IBaseRequest";
     private const string MediatrNotificationFullyQualifiedName = $"{MediatrModuleName}.INotification";
 
-    private const string MediatrRequestHandlerFullyQualifiedName = $"{MediatrModuleName}.IRequestHandler`1";
-    private const string MediatrNotificationHandlerFullyQualifiedName = $"{MediatrModuleName}.INotificationHandler`1";
+    private static readonly List<string> MediatrRequestHandlerFullyQualifiedNames = [
+        $"{MediatrModuleName}.IRequestHandler`1",
+        $"{MediatrModuleName}.IRequestHandler`2"
+    ];
+    private static readonly List<string> MediatrNotificationHandlerFullyQualifiedNames = [
+        $"{MediatrModuleName}.INotificationHandler`1",
+    ];
     
     private readonly IHandlrCreator _handlrCreator;
 
@@ -22,8 +28,8 @@ internal sealed class MediatRLibrary : Library
         MediatrModuleName,
         MediatrBaseRequestFullyQualifiedName,
         MediatrNotificationFullyQualifiedName,
-        MediatrRequestHandlerFullyQualifiedName,
-        MediatrNotificationHandlerFullyQualifiedName
+        MediatrRequestHandlerFullyQualifiedNames,
+        MediatrNotificationHandlerFullyQualifiedNames
     )
     {
         _handlrCreator = new HandlrCreator();

@@ -18,19 +18,19 @@ internal abstract class Library : ILibrary
     private readonly string _requestClrName;
     private readonly string _notificationClrName;
 
-    private readonly string _requestHandlerClrName;
-    private readonly string _notificationHandlerClrName;
+    private readonly List<string> _requestHandlerClrNames;
+    private readonly List<string> _notificationHandlerClrNames;
 
-    private ITypeElement? _requestTypeElement;
-    private ITypeElement? _notificationTypeElement;
+    private List<ITypeElement> _requestTypeElements = [];
+    private List<ITypeElement> _notificationTypeElements = [];
 
     protected Library
     (
         string moduleName,
         string requestClrName,
         string notificationClrName,
-        string requestHandlerClrName,
-        string notificationHandlerClrName
+        List<string> requestHandlerClrNames,
+        List<string> notificationHandlerClrNames
     )
     {
         _moduleName = moduleName;
@@ -38,8 +38,8 @@ internal abstract class Library : ILibrary
         _requestClrName = requestClrName;
         _notificationClrName = notificationClrName;
         
-        _requestHandlerClrName = requestHandlerClrName;
-        _notificationHandlerClrName = notificationHandlerClrName;
+        _requestHandlerClrNames = requestHandlerClrNames;
+        _notificationHandlerClrNames = notificationHandlerClrNames;
     }
 
     public IEnumerable<ITypeElement> FindHandlers
@@ -53,7 +53,7 @@ internal abstract class Library : ILibrary
         {
             return identifier.FindHandlers
             (
-                _requestTypeElement
+                _requestTypeElements
             );
         }
         
@@ -61,7 +61,7 @@ internal abstract class Library : ILibrary
         {
             return identifier.FindHandlers
             (
-                _notificationTypeElement
+                _notificationTypeElements
             );
         }
 
@@ -86,7 +86,7 @@ internal abstract class Library : ILibrary
         IIdentifier identifier
     )
     {
-        if (_requestTypeElement is not null || _notificationTypeElement is not null)
+        if (_requestTypeElements.Count > 0 || _notificationTypeElements.Count > 0)
             return;
         
         //  Need to get the PSI 
@@ -99,8 +99,38 @@ internal abstract class Library : ILibrary
             return;
         
         ISymbolScope symbolScope = psiServices.Symbols.GetSymbolScope(mediatrPsiModule, true, false);
-        _requestTypeElement = symbolScope.GetTypeElementByCLRName(_requestHandlerClrName);
-        _notificationTypeElement = symbolScope.GetTypeElementByCLRName(_notificationHandlerClrName);
+
+        LoadTypeElementsFromSymbolScope
+        (
+            symbolScope,
+            _requestHandlerClrNames,
+            _requestTypeElements
+        );
+        
+        LoadTypeElementsFromSymbolScope
+        (
+            symbolScope,
+            _notificationHandlerClrNames,
+            _notificationTypeElements
+        );
+    }
+    
+    private static void LoadTypeElementsFromSymbolScope
+    (
+        ISymbolScope symbolScope,
+        IReadOnlyCollection<string> typeClrNames,
+        List<ITypeElement> typeElements
+    )
+    {
+        foreach (var notificationHandlerClrName in typeClrNames)
+        {
+            ITypeElement? typeElement = symbolScope.GetTypeElementByCLRName(notificationHandlerClrName);
+            
+            if(typeElement is null)
+                continue;
+            
+            typeElements.Add(typeElement);
+        }
     }
     
     private bool IsRequest

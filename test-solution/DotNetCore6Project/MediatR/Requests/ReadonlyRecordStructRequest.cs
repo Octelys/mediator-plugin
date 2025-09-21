@@ -2,4 +2,5 @@
 
 namespace DotNetCore6_Domain.MediatR.Requests;
 
-public readonly record struct MyRequest(string input) : IRequest<MyResponse>;
+//  ReadonlyRecordStructHandler
+public sealed record ReadonlyRecordStructRequest(string input) : IRequest<MyResponse>;

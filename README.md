@@ -3,7 +3,7 @@
 [![Rider Plugin](https://img.shields.io/jetbrains/plugin/v/ca.nosuchcompany.rider.plugins.mediatr)](https://plugins.jetbrains.com/plugin/18313-mediatr-extensions)
 [![ReSharper Plugin](https://img.shields.io/resharper/v/ca.nosuchcompany.mediatrplugin)](https://plugins.jetbrains.com/plugin/18347-mediatr-extensions)
 
-Boost your navigation superpowers in Rider and ReSharper with this plugin for MediatR-based applications. Quickly jump between `IRequest`, `INotification`, and their respective handlers—like teleportation for your CQRS architecture.
+Boost your navigation superpowers in Rider and ReSharper with this plugin for Mediator-based applications. Quickly jump between `IRequest`, `INotification`, and their respective handlers—like teleportation for your CQRS architecture.
 
 ---
 
@@ -43,6 +43,8 @@ The MediatR extension should appear as version `9999.0`.
 ```bash
 ./gradlew :runIde
 ```
+
+
 
 ---
 
