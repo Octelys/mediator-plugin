@@ -10,7 +10,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>ReSharper.MediatorPlugin</RootNamespace>
     <AssemblyName>MediatorPlugin</AssemblyName>
-    <PackageIcon>https://raw.githubusercontent.com/Octelys/mediator-plugin/refs/heads/main/public/octelys-mediator.png</PackageIcon>
+    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
