@@ -63,9 +63,10 @@ jobs:
           mkdir -p publish/rider/mediator/dotnet
           cp build/libs/mediatr-${{ env.VERSION }}.jar publish/rider/mediator/lib
           cp build/resources/main/META-INF/plugin.xml publish/rider/mediator/META-INF
-          cp pluginIcon.svg publish/rider/mediator/META-INF
+          cp Icon.png publish/rider/mediator/META-INF
           cp src/dotnet/MediatorPlugin/bin/MediatorPlugin.Rider/Debug/MediatorPlugin.dll publish/rider/mediator/dotnet
-          zip -r publish/mediator.${{ env.VERSION }}.zip publish/rider/mediator/
+          cd publish/rider
+          zip -r publish/mediator.${{ env.VERSION }}.zip mediator/
 
       - name: publish rider plugin
         uses: actions/upload-artifact@v4.6.2
