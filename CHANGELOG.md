@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 25.09.21XX
+- Fix the bug preventing navigation to handlers with a Response.
+
 ## 25.05.22XX
 - Since MediatR is going commercial, we need other options. This plugin now supports another similar Mediator library: https://github.com/martinothamar/Mediator
 

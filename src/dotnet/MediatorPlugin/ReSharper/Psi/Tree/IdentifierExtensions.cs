@@ -35,7 +35,7 @@ internal static class IdentifierExtensions
     public static IEnumerable<ITypeElement> FindHandlers
     (
         this IIdentifier identifier,
-        ITypeElement? requestTypeElement
+        List<ITypeElement> requestTypeElements
     )
     {
 
@@ -43,17 +43,23 @@ internal static class IdentifierExtensions
         
         if (identifier.Parent is not IDeclaration declaration)
             return EmptyTypeElements;
+
+        if (requestTypeElements.Count == 0)
+            return EmptyTypeElements;
         
         var inheritorsConsumer = new InheritorsConsumer();
 
-        psiServices
-            .SingleThreadedFinder
-            .FindInheritors
-            (
-                requestTypeElement, 
-                inheritorsConsumer,
-                new ProgressIndicator(Lifetime.Eternal)
-            );
+        foreach (ITypeElement requestTypeElement in requestTypeElements)
+        {
+            psiServices
+                .SingleThreadedFinder
+                .FindInheritors
+                (
+                    requestTypeElement,
+                    inheritorsConsumer,
+                    new ProgressIndicator(Lifetime.Eternal)
+                );
+        }
 
         //  I do not know why but FindInheritors and GetPossibleInheritors do not return all the handlers by themselves.
         //  I have to union both results of each to get all the actual IRequestHandler implementations.
@@ -144,11 +150,11 @@ internal static class IdentifierExtensions
                 continue;
             }
 
-            if (classInheritor.IsAbstract)
-            {
-                Logger.Instance.Log(LoggingLevel.VERBOSE, $"Skipped: '{inheritor.GetClrName().FullName}' is abstract.");
-                continue;
-            }
+            //if (classInheritor.IsAbstract)
+            //{
+            //    Logger.Instance.Log(LoggingLevel.VERBOSE, $"Skipped: '{inheritor.GetClrName().FullName}' is abstract.");
+            //    continue;
+            //}
 
             bool supportRequest = classInheritor
                 .GetDeclarations()

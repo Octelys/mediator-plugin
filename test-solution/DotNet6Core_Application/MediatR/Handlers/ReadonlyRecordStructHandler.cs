@@ -3,9 +3,9 @@ using MediatR;
 
 namespace DotNet6Core_Application.MediatR.Handlers;
 
-public class ReadonlyRecordStructHandler : IRequestHandler<MyRequest, MyResponse>
+public class ReadonlyRecordStructHandler : IRequestHandler<ReadonlyRecordStructRequest, MyResponse>
 {
-    public Task<MyResponse> Handle(MyRequest request, CancellationToken cancellationToken)
+    public Task<MyResponse> Handle(ReadonlyRecordStructRequest request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
