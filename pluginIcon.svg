@@ -6,10 +6,10 @@
     <defs>
         <linearGradient
             id="line1Gradient"
-            x1="380"
-            y1="360"
-            x2="380"
-            y2="560"
+            x1="180"
+            y1="60"
+            x2="180"
+            y2="260"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -22,10 +22,10 @@
         </linearGradient>
         <linearGradient
             id="line2Gradient"
-            x1="380"
-            y1="360"
-            x2="380"
-            y2="560"
+            x1="180"
+            y1="60"
+            x2="360"
+            y2="220"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -38,10 +38,10 @@
         </linearGradient>
         <linearGradient
             id="line3Gradient"
-            x1="380"
-            y1="360"
-            x2="380"
-            y2="560"
+            x1="395"
+            y1="140"
+            x2="450"
+            y2="82"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -54,10 +54,10 @@
         </linearGradient>
         <linearGradient
             id="line4Gradient"
-            x1="380"
-            y1="360"
-            x2="380"
-            y2="560"
+            x1="472"
+            y1="60"
+            x2="472"
+            y2="260"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -88,55 +88,55 @@
     
     <!-- M1 -->
     <line 
-        x1="380"
-        y1="360"
-        x2="380"
-        y2="560"
+        x1="180"
+        y1="60"
+        x2="180"
+        y2="260"
         stroke-width="62"
         stroke-linecap="round"
         stroke="url(#line1Gradient)"
         />
     <!-- M4 -->
     <line
-            x1="672"
-            y1="360"
-            x2="672"
-            y2="560"
+            x1="472"
+            y1="60"
+            x2="472"
+            y2="260"
             stroke-width="63"
             stroke-linecap="round"
             stroke="url(#line4Gradient)"
     />
     <!-- M2 -->
     <line
-        x1="380"
-        y1="360"
-        x2="560"
-        y2="520"
+        x1="180"
+        y1="60"
+        x2="360"
+        y2="220"
         stroke-width="62"
         stroke-linecap="round"
         stroke="url(#line2Gradient)"
         />
     <!-- M3 -->
     <line
-        x1="595"
-        y1="440"
-        x2="650"
-        y2="382"
+        x1="395"
+        y1="140"
+        x2="450"
+        y2="82"
         stroke-width="62"
         stroke-linecap="square"
         stroke="url(#line3Gradient)"
         />
     <circle
-        cx="672"
-        cy="360"
+        cx="472"
+        cy="60"
         r="31"
         stroke-width="2"
         stroke-linecap="square"
         fill="#2b4daf"
         />
     <text
-        x="525"
-        y="740"
+        x="325"
+        y="440"
         font-family="Helvetica Neue, Helvetica, Arial Black, sans-serif"
         font-size="110"
         font-weight="900"
