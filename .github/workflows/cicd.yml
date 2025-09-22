@@ -63,7 +63,7 @@ jobs:
           mkdir -p publish/rider/mediator/dotnet
           cp build/libs/mediatr-${{ env.VERSION }}.jar publish/rider/mediator/lib
           cp build/resources/main/META-INF/plugin.xml publish/rider/mediator/META-INF
-          cp Icon.png publish/rider/mediator/META-INF
+          cp Icon.svg publish/rider/mediator/META-INF
           cp src/dotnet/MediatorPlugin/bin/MediatorPlugin.Rider/Debug/MediatorPlugin.dll publish/rider/mediator/dotnet
           cd publish/rider/mediator
           zip -r ../../mediator.${{ env.VERSION }}.zip .

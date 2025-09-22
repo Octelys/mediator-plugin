@@ -137,9 +137,9 @@
     <text
         x="525"
         y="740"
-        font-family="Arial, sans-serif"
+        font-family="Helvetica Neue, Helvetica, Arial Black, sans-serif"
         font-size="110"
-        font-weight="bold"
+        font-weight="900"
         text-anchor="middle"
         fill="url(#textGradient)">
         MEDIATOR
