@@ -1,15 +1,15 @@
 <svg
     xmlns="http://www.w3.org/2000/svg"
     id="svg0.32870411484086026"
-    width="1024"
-    height="1024">
+    width="640"
+    height="640">
     <defs>
         <linearGradient
             id="line1Gradient"
             x1="180"
-            y1="60"
+            y1="130"
             x2="180"
-            y2="260"
+            y2="330"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -23,9 +23,9 @@
         <linearGradient
             id="line2Gradient"
             x1="180"
-            y1="60"
+            y1="130"
             x2="360"
-            y2="220"
+            y2="290"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -39,9 +39,9 @@
         <linearGradient
             id="line3Gradient"
             x1="395"
-            y1="140"
+            y1="210"
             x2="450"
-            y2="82"
+            y2="152"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -55,9 +55,9 @@
         <linearGradient
             id="line4Gradient"
             x1="472"
-            y1="60"
+            y1="130"
             x2="472"
-            y2="260"
+            y2="330"
             gradientUnits="userSpaceOnUse">
             <stop
                 offset="0%"
@@ -89,9 +89,9 @@
     <!-- M1 -->
     <line 
         x1="180"
-        y1="60"
+        y1="130"
         x2="180"
-        y2="260"
+        y2="330"
         stroke-width="62"
         stroke-linecap="round"
         stroke="url(#line1Gradient)"
@@ -99,9 +99,9 @@
     <!-- M4 -->
     <line
             x1="472"
-            y1="60"
+            y1="130"
             x2="472"
-            y2="260"
+            y2="330"
             stroke-width="63"
             stroke-linecap="round"
             stroke="url(#line4Gradient)"
@@ -109,9 +109,9 @@
     <!-- M2 -->
     <line
         x1="180"
-        y1="60"
+        y1="130"
         x2="360"
-        y2="220"
+        y2="290"
         stroke-width="62"
         stroke-linecap="round"
         stroke="url(#line2Gradient)"
@@ -119,16 +119,16 @@
     <!-- M3 -->
     <line
         x1="395"
-        y1="140"
+        y1="210"
         x2="450"
-        y2="82"
+        y2="152"
         stroke-width="62"
         stroke-linecap="square"
         stroke="url(#line3Gradient)"
         />
     <circle
         cx="472"
-        cy="60"
+        cy="130"
         r="31"
         stroke-width="2"
         stroke-linecap="square"
@@ -136,7 +136,7 @@
         />
     <text
         x="325"
-        y="440"
+        y="510"
         font-family="Helvetica Neue, Helvetica, Arial Black, sans-serif"
         font-size="110"
         font-weight="900"
