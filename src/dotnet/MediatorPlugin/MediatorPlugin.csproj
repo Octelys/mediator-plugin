@@ -10,7 +10,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>ReSharper.MediatorPlugin</RootNamespace>
     <AssemblyName>MediatorPlugin</AssemblyName>
-    <PackageIcon>Icon.svg</PackageIcon>
+    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
