@@ -68,6 +68,22 @@
                 stop-color="#20519e"
             />
         </linearGradient>
+        <linearGradient
+            id="textGradient"
+            x1="0%"
+            y1="0%"
+            x2="0%"
+            y2="100%"
+            gradientUnits="objectBoundingBox">
+            <stop
+                offset="0%"
+                stop-color="#333333"
+                />
+            <stop
+                offset="100%"
+                stop-color="#555555"
+                />
+        </linearGradient>
     </defs>
     
     <!-- M1 -->
@@ -118,4 +134,14 @@
         stroke-linecap="square"
         fill="#2b4daf"
         />
+    <text
+        x="525"
+        y="740"
+        font-family="Arial, sans-serif"
+        font-size="110"
+        font-weight="bold"
+        text-anchor="middle"
+        fill="url(#textGradient)">
+        MEDIATOR
+    </text>
 </svg>
