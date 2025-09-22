@@ -28,7 +28,7 @@ jobs:
           MONTH=$(date +'%m')
           DAY=$(date +'%d')
           REV=$(printf "%02d" ${{ github.run_number }})
-          VERSION="$YEAR.$MONTH.$DAY.$REV"
+          VERSION="$YEAR.$MONTH.$DAY$REV"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT          
         shell: bash
