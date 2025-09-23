@@ -1,0 +1,18 @@
+﻿<Solution>
+  <Folder Name="/misc/">
+    <File Path="CHANGELOG.md" />
+    <File Path="gradle.properties" />
+    <File Path="src\dotnet\Plugin.props" />
+    <File Path="src\rider\main\resources\META-INF\plugin.xml" />
+    <File Path="README.md" />
+    <File Path="runVisualStudio.ps1" />
+    <File Path="settings.ps1" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src\dotnet\MediatorPlugin\MediatorPlugin.csproj" />
+    <Project Path="src\dotnet\MediatorPlugin\MediatorPlugin.Rider.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="src\dotnet\MediatorPlugin.Tests\MediatorPlugin.Tests.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>
