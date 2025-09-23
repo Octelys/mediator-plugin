@@ -28,7 +28,7 @@ jobs:
           MONTH=$(date +'%m')
           DAY=$(date +'%d')
           REV=$(printf "%02d" ${{ github.run_number }})
-          VERSION="$YEAR.$MONTH.$DAY.$REV"
+          VERSION="$YEAR.$MONTH.$DAY$REV"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT          
         shell: bash
@@ -65,7 +65,8 @@ jobs:
           cp build/resources/main/META-INF/plugin.xml publish/rider/mediator/META-INF
           cp pluginIcon.svg publish/rider/mediator/META-INF
           cp src/dotnet/MediatorPlugin/bin/MediatorPlugin.Rider/Debug/MediatorPlugin.dll publish/rider/mediator/dotnet
-          zip -r publish/mediator.${{ env.VERSION }}.zip publish/rider/mediator/
+          cd publish/rider
+          zip -r ../mediator.${{ env.VERSION }}.zip ./mediator/
 
       - name: publish rider plugin
         uses: actions/upload-artifact@v4.6.2
