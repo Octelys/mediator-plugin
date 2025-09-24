@@ -96,7 +96,7 @@ This abstraction allows the plugin to work seamlessly with both libraries withou
 
 ```powershell
 # Open the solution
-MediatorPlugin.sln
+MediatorPlugin.slnx
 
 # Ensure NuGet feed is available
 https://api.nuget.org/v3/index.json
