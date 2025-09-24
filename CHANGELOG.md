@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 25.09.24XX
+- Fix issue when using the plugin in ReSharper Out-of-Process. Thanks @ulex!
+
 ## 25.09.21XX
 - Fix the bug preventing navigation to handlers with a Response.
 
