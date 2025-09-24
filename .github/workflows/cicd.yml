@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: mediator.rider.${{ env.VERSION }}
-          path: publish/rider/mediator
+          path: publish/rider
 
       - name: publish resharper plugin
         uses: actions/upload-artifact@v4.6.2
