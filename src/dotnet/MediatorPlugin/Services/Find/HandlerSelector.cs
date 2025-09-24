@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.Application.UI.PopupLayout;
 using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation;
@@ -39,19 +40,26 @@ internal sealed class HandlerSelector : IHandlerSelector
             Logger.Instance.Log(LoggingLevel.VERBOSE, $"Selected element is not an instance {nameof(IIdentifier)}");
             return;
         }
-                    
-        var potentialNavigationPoints = new List<INavigationPoint>();
 
-        IEnumerable<IDeclaredElement> result = _libraryAdaptor.FindHandlers
+        var handlers = new List<IDeclaredElement>(_libraryAdaptor.FindHandlers(selectedIdentifier));
+
+        if (handlers.Count == 0)
+            return;
+
+        //  Get DeclaredElementNavigationService
+        var navigationService = solution.GetComponent<DeclaredElementNavigationService>();
+
+        //  Create popup context (this may need to be adapted to your UI context)
+        PopupWindowContextSource popupContext = navigationOptionsFactory
+            .Get("Which handler do you want to navigate to?")
+            .PopupWindowContextSource;
+
+        // Show popup to select handler
+        navigationService.ExecuteCandidates
         (
-            selectedIdentifier
+            handlers,
+            popupContext,
+            true
         );
-                    
-        foreach (IDeclaredElement? handler in result)
-            potentialNavigationPoints.Add(new DeclaredElementNavigationPoint(handler));
-                    
-        // Get required components from the data context
-        NavigationOptions options = navigationOptionsFactory.Get("Which handler do you want to navigate to?");
-        NavigationManager.GetInstance(solution).Navigate(potentialNavigationPoints, options);
     }
 }
