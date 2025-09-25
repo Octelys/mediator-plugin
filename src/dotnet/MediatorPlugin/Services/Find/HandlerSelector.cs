@@ -1,13 +1,16 @@
-using System.Collections.Generic;
+using JetBrains.Application.Threading;
 using JetBrains.Application.UI.PopupLayout;
 using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.TextControl;
 using ReSharper.MediatorPlugin.Diagnostics;
 using ReSharper.MediatorPlugin.Services.Libraries;
 using ReSharper.MediatorPlugin.Services.Navigation;
+using System.Collections.Generic;
+using JetBrains.TextControl.CodeWithMe;
 
 namespace ReSharper.MediatorPlugin.Services.Find;
 
@@ -41,25 +44,46 @@ internal sealed class HandlerSelector : IHandlerSelector
             return;
         }
 
-        var handlers = new List<IDeclaredElement>(_libraryAdaptor.FindHandlers(selectedIdentifier));
+        var handlers = new List<IDeclaredElement>
+        (
+            _libraryAdaptor.FindHandlers(selectedIdentifier)
+        );
 
         if (handlers.Count == 0)
             return;
 
-        //  Get DeclaredElementNavigationService
         var navigationService = solution.GetComponent<DeclaredElementNavigationService>();
+        var locks = solution.GetComponent<IShellLocks>();
+        var textControlManager = solution.GetComponent<ITextControlManager>();
 
-        //  Create popup context (this may need to be adapted to your UI context)
-        PopupWindowContextSource popupContext = navigationOptionsFactory
-            .Get("Which handler do you want to navigate to?")
-            .PopupWindowContextSource;
-
-        // Show popup to select handler
-        navigationService.ExecuteCandidates
+        // Always marshal to UI thread for popup creation in ReSharper
+        locks.ExecuteOrQueue
         (
-            handlers,
-            popupContext,
-            true
+            "ShowMediatorHandlersPopup",
+            () =>
+            {
+                // Try to anchor popup to current text control (caret). This is important in VS.
+                ITextControl? focusedTextControl = textControlManager.FocusedTextControlPerClient.ForCurrentClient();
+
+                PopupWindowContextSource popupSource;
+
+                if (focusedTextControl is not null)
+                {
+                    popupSource = focusedTextControl.PopupWindowContextFactory.ForCaret();
+                }
+                else
+                {
+                    // Fallback (less ideal, but ensures a context); you can craft another source if needed.
+                    popupSource = navigationOptionsFactory.Get("Select handler").PopupWindowContextSource;
+                }
+
+                navigationService.ExecuteCandidates
+                (
+                    handlers,
+                    popupSource,
+                    false
+                );
+            }
         );
     }
 }
