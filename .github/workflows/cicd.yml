@@ -10,10 +10,13 @@ on:
   workflow_dispatch:
     inputs:
       runs_on:
-        required: false
-        type: string
-        default: 'ubuntu-latest'
-        description: 'Runner to use for the job'
+        required: true
+        type: choice
+        default: 'self-hosted'
+        options:
+          - 'self-hosted'
+          - 'ubuntu-latest'
+        description: 'Runner'
 
 jobs:
   build:
@@ -70,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: mediator.rider.${{ env.VERSION }}
-          path: publish/rider/mediator
+          path: publish/rider
 
       - name: publish resharper plugin
         uses: actions/upload-artifact@v4.6.2
