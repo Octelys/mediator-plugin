@@ -1,94 +1,94 @@
-﻿using JetBrains.Application.DataContext;
-using JetBrains.Application.UI.Actions;
-using JetBrains.Application.UI.ActionsRevised.Menu;
-using JetBrains.Application.UI.ActionSystem.ActionsRevised.Menu;
+﻿using System;
+using JetBrains.Application.Progress;
+using JetBrains.Application.UI.PopupLayout;
 using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Feature.Services.Menu;
-using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
-using JetBrains.ReSharper.Psi.Files;
+using JetBrains.ReSharper.Feature.Services.ContextActions;
+using JetBrains.ReSharper.Feature.Services.CSharp.ContextActions;
 using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.TextControl;
+using JetBrains.Util;
 using ReSharper.MediatorPlugin.Diagnostics;
 using ReSharper.MediatorPlugin.Services.Find;
 using ReSharper.MediatorPlugin.Services.Navigation;
 
 namespace ReSharper.MediatorPlugin.Actions;
 
-[Action
+[ContextAction
 (
-    "GoToHandlerAction",
-    "Go to Handler",
-    IdeaShortcuts = new [] {"Alt+H"}, 
-    VsShortcuts = new [] {"Alt+H"}
+    Name = "Go to Handler",
+    Description = "Navigate to the Mediator handler for the selected request",
+    GroupType = typeof(CSharpContextActions),
+    Disabled = false,
+    Priority = 1
 )]
-public class GoToHandlerAction : IActionWithExecuteRequirement, IExecutableAction, IInsertLast<NavigateMenu>
+public sealed class GoToHandlerAction : ContextActionBase
 {
     private readonly IHandlerSelector _handlerSelector;
+    private readonly IIdentifier? _mediatrRequestIdentifier;
+    private PopupWindowContextSource? _windowContext;
 
-    public GoToHandlerAction()
+    public override string Text => "Go to Handler";
+
+    public GoToHandlerAction(LanguageIndependentContextActionDataProvider dataProvider)
     {
+        Guard.ThrowIfIsNull(dataProvider, nameof(dataProvider));
+        
         Logger.Instance.Log(LoggingLevel.VERBOSE, "GoToHandlerAction instance has been created");
 
         _handlerSelector = new HandlerSelector();
+        _mediatrRequestIdentifier = GetSelectedMediatrRequest(dataProvider);
     }
 
-    public void Execute
-    (
-        IDataContext context,
-        DelegateExecute nextExecute
-    )
+    public override bool IsAvailable(IUserDataHolder cache)
     {
-        Guard.ThrowIfIsNull(context, nameof(context));
+        return _mediatrRequestIdentifier != null && 
+               _handlerSelector.IsMediatorRequestSupported(_mediatrRequestIdentifier);
+    }
 
-        var solution = context.GetComponent<ISolution>();
-        var selectedTreeNode = context.GetSelectedTreeNode<ITreeNode>();
+    public override void Execute(ISolution solution, ITextControl textControl)
+    {
+        _windowContext = textControl.PopupWindowContextFactory.ForCaret();
+        base.Execute(solution, textControl);
+    }
 
-        if (selectedTreeNode is not IIdentifier)
+    protected override Action<ITextControl> ExecutePsiTransaction(ISolution solution, IProgressIndicator progress)
+    {
+        if (_windowContext == null)
         {
-            Logger.Instance.Log(LoggingLevel.VERBOSE, $"Selected element is not an instance {nameof(IIdentifier)}");
-            return;
+            Logger.Instance.Log(LoggingLevel.WARN, "Unable to retrieve the popup window context: navigation not possible");
+            return DefaultActions.Empty;
         }
+
+        if (_mediatrRequestIdentifier == null)
+        {
+            Logger.Instance.Log(LoggingLevel.VERBOSE, "Selected element is not a supported Mediator request");
+            return DefaultActions.Empty;
+        }
+
+        Logger.Instance.Log(LoggingLevel.INFO, "Navigating to one of the found handlers");
 
         _handlerSelector.NavigateToHandler
         (
             solution,
-            selectedTreeNode,
-            new DataContextNavigationOptionsFactory(context)
+            _mediatrRequestIdentifier,
+            new PopupWindowContextSourceNavigationOptionsFactory(_windowContext)
         );
+
+        return DefaultActions.Empty;
     }
 
-    public IActionRequirement GetRequirement
-    (
-        IDataContext dataContext
-    )
+    private static IIdentifier? GetSelectedMediatrRequest(LanguageIndependentContextActionDataProvider dataProvider)
     {
-        return CommitAllDocumentsRequirement.TryGetInstance(dataContext);
-    }
+        var selectedTreeNode = dataProvider.GetSelectedTreeNode<ITreeNode>();
+        
+        if (selectedTreeNode is IIdentifier identifier)
+        {
+            Logger.Instance.Log(LoggingLevel.VERBOSE, $"Selected tree node is an identifier: {identifier.Name}");
+            return identifier;
+        }
 
-    public bool Update
-    (
-        IDataContext context,
-        ActionPresentation presentation,
-        DelegateUpdate nextUpdate
-    )
-    {
-        Guard.ThrowIfIsNull(context, nameof(context));
-
-        return IsMediatorRequestOrNotificationSelected(context);
-    }
-
-    private bool IsMediatorRequestOrNotificationSelected
-    (
-        IDataContext context
-    )
-    {
-        var selectedTreeNode = context.GetSelectedTreeNode<ITreeNode>();
-
-        if (selectedTreeNode is IIdentifier selectedIdentifier && _handlerSelector.IsMediatorRequestSupported(selectedIdentifier))
-            return true;
-
-        Logger.Instance.Log(LoggingLevel.VERBOSE, "Selected element is not a supported Mediator request");
-            
-        return false;
+        Logger.Instance.Log(LoggingLevel.VERBOSE, "Selected tree node is not an identifier");
+        return null;
     }
 }
