@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 25.09.25XX
+- Reworked the support for navigating to handler in ReSharper.
+
 ## 25.09.24XX
 - Fix issue when using the plugin in ReSharper Out-of-Process. Thanks @ulex!
 
