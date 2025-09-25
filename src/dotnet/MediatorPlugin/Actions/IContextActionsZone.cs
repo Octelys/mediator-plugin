@@ -4,7 +4,6 @@ using JetBrains.ReSharper.Psi.CSharp;
 namespace ReSharper.MediatorPlugin.Actions;
 
 [ZoneDefinition]
-public interface IContextActionsZone : IZone,
-    IRequire<ILanguageCSharpZone>
+public interface IContextActionsZone : IZone, IRequire<ILanguageCSharpZone>
 {
 }

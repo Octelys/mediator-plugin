@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Application\Application.csproj" Id="b01127d1-0e4b-4f02-b4cb-ac87d36f05f2" />
+  <Project Path="Console\Console.csproj" Id="ee91d8b6-435e-4866-9111-5c43983e15f1" />
+  <Project Path="Domain\Domain.csproj" Id="9ce8d2c1-7836-43eb-8c94-79602a984b5f" />
+  <Project Path="DotNet6Core_Application\DotNet6Core_Application.csproj" />
+  <Project Path="DotNetCore6Project\DotNetCore6_Domain.csproj" />
+</Solution>

@@ -1,12 +1,16 @@
-using System.Collections.Generic;
+using JetBrains.Application.Threading;
+using JetBrains.Application.UI.PopupLayout;
 using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.TextControl;
 using ReSharper.MediatorPlugin.Diagnostics;
 using ReSharper.MediatorPlugin.Services.Libraries;
 using ReSharper.MediatorPlugin.Services.Navigation;
+using System.Collections.Generic;
+using JetBrains.TextControl.CodeWithMe;
 
 namespace ReSharper.MediatorPlugin.Services.Find;
 
@@ -39,19 +43,47 @@ internal sealed class HandlerSelector : IHandlerSelector
             Logger.Instance.Log(LoggingLevel.VERBOSE, $"Selected element is not an instance {nameof(IIdentifier)}");
             return;
         }
-                    
-        var potentialNavigationPoints = new List<INavigationPoint>();
 
-        IEnumerable<IDeclaredElement> result = _libraryAdaptor.FindHandlers
+        var handlers = new List<IDeclaredElement>
         (
-            selectedIdentifier
+            _libraryAdaptor.FindHandlers(selectedIdentifier)
         );
-                    
-        foreach (IDeclaredElement? handler in result)
-            potentialNavigationPoints.Add(new DeclaredElementNavigationPoint(handler));
-                    
-        // Get required components from the data context
-        NavigationOptions options = navigationOptionsFactory.Get("Which handler do you want to navigate to?");
-        NavigationManager.GetInstance(solution).Navigate(potentialNavigationPoints, options);
+
+        if (handlers.Count == 0)
+            return;
+
+        var navigationService = solution.GetComponent<DeclaredElementNavigationService>();
+        var locks = solution.GetComponent<IShellLocks>();
+        var textControlManager = solution.GetComponent<ITextControlManager>();
+
+        // Always marshal to UI thread for popup creation in ReSharper
+        locks.ExecuteOrQueue
+        (
+            "ShowMediatorHandlersPopup",
+            () =>
+            {
+                // Try to anchor popup to current text control (caret). This is important in VS.
+                ITextControl? focusedTextControl = textControlManager.FocusedTextControlPerClient.ForCurrentClient();
+
+                PopupWindowContextSource popupSource;
+
+                if (focusedTextControl is not null)
+                {
+                    popupSource = focusedTextControl.PopupWindowContextFactory.ForCaret();
+                }
+                else
+                {
+                    // Fallback (less ideal, but ensures a context); you can craft another source if needed.
+                    popupSource = navigationOptionsFactory.Get("Select handler").PopupWindowContextSource;
+                }
+
+                navigationService.ExecuteCandidates
+                (
+                    handlers,
+                    popupSource,
+                    false
+                );
+            }
+        );
     }
 }

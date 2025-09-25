@@ -120,8 +120,6 @@ The MediatR extension should appear as version `9999.0`.
 ./gradlew :runIde
 ```
 
->-->
-
 ---
 
 ## 👨‍💻 Contributions

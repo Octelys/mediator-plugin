@@ -5,5 +5,5 @@ namespace ReSharper.MediatorPlugin.Diagnostics;
 
 internal static class Logger
 {
-    public static readonly ILog Instance = Log.GetLog<GoToHandlerContextAction>();
+    public static readonly ILog Instance = Log.GetLog<GoToHandlerAction>();
 }
