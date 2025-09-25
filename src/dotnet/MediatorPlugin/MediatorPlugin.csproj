@@ -10,7 +10,6 @@
     <Nullable>enable</Nullable>
     <RootNamespace>ReSharper.MediatorPlugin</RootNamespace>
     <AssemblyName>MediatorPlugin</AssemblyName>
-    <PackageIconUrl>https://raw.githubusercontent.com/Octelys/mediator-plugin/refs/heads/main/public/Icon.png</PackageIconUrl>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
@@ -27,10 +26,6 @@
     <PackageReference Include="JetBrains.ReSharper.SDK" Version="$(SdkVersion)" PrivateAssets="all" />
     <!-- TODO: https://github.com/NuGet/Home/issues/7154 -->
     <PackageReference Include="Wave" Version="[$(WaveVersion),$(UpperWaveVersion))" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\Icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
