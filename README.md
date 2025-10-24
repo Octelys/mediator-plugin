@@ -69,7 +69,7 @@ The plugin provides two main entry points for navigation:
 
 #### Library Abstraction
 
-The plugin uses a sophisticated abstraction layer to support both MediatR and Mediator libraries:
+The plugin uses an abstraction layer to support both MediatR and Mediator libraries:
 
 **Common Interface (`ILibrary`)**:
 - `FindHandlers()`: Locates handler implementations for a given request/notification

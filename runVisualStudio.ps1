@@ -1,5 +1,5 @@
 Param(
-    $RootSuffix = "Mediator",
+    $RootSuffix = "MediatR",
     $Version = "9999.0.0"
 )
 
@@ -10,7 +10,7 @@ Set-Location $PSScriptRoot
 
 . ".\settings.ps1"
 
-$UserProjectXmlFile = "$SourceBasePath\$PluginId\$PluginId.csproj.user"
+$UserProjectXmlFile = "$SourceBasePath\$PluginId.csproj.user"
 
 if (!(Test-Path "$UserProjectXmlFile")) {
     # Get versions from Plugin.props file
@@ -23,11 +23,16 @@ if (!(Test-Path "$UserProjectXmlFile")) {
     # Determine download link
     $ReleaseUrl = "https://data.services.jetbrains.com/products/releases?code=RSU&type=eap&type=release&majorVersion=$MajorVersion"
     $VersionEntry = $(Invoke-WebRequest -UseBasicParsing $ReleaseUrl | ConvertFrom-Json).RSU[0]
-    ## TODO: check versions
-    $DownloadLink = [uri] ($VersionEntry.downloads.windows.link.replace(".exe", ".Checked.exe"))
+    $DownloadLink = [uri] ($VersionEntry.downloads.windows.link)
 
     # Download installer
     $InstallerFile = "$env:TEMP\JetBrains\Installer.Offline\$($DownloadLink.Segments[-1])"
+    # Ensure installer cache directory exists
+    $InstallerDirectory = Split-Path $InstallerFile -Parent
+    if (!(Test-Path $InstallerDirectory)) {
+        Write-Output "Creating installer cache directory: $InstallerDirectory"
+        New-Item -ItemType Directory -Force -Path $InstallerDirectory | Out-Null
+    }
     if (!(Test-Path $InstallerFile)) {
         Write-Output "Downloading $($DownloadLink.Segments[-2].TrimEnd("/")) installer"
         Start-BitsTransfer -Source $DownloadLink -Destination $InstallerFile

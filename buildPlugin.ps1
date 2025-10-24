@@ -5,6 +5,9 @@ Param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
+
+Write-Host "Building MediatorPlugin version $. Root $PSScriptRoot"
+
 Set-Location $PSScriptRoot
 
 . ".\settings.ps1"
