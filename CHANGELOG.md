@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 25.10.08XX
+- Fix issue #88: navigation to handlers was broken if the source is not the declaration of the request :eyesrolling
+
 ## 25.09.25XX
 - Reworked the support for navigating to handler in ReSharper.
 - Support for 2025.3
