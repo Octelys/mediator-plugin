@@ -53,7 +53,7 @@ jobs:
           distribution: 'oracle'
 
       - name: setup gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: build
         run: ./gradlew :prepareSandbox -PPluginVersion=${{ env.VERSION }}
