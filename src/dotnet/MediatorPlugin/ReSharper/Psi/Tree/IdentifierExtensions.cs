@@ -41,7 +41,9 @@ internal static class IdentifierExtensions
 
         IPsiServices psiServices = identifier.GetPsiServices();
         
-        if (identifier.Parent is not IDeclaration declaration)
+        string shortName = identifier.Name;
+        
+        if (string.IsNullOrEmpty(shortName))
             return EmptyTypeElements;
 
         if (requestTypeElements.Count == 0)
@@ -69,7 +71,7 @@ internal static class IdentifierExtensions
             (
                 psiServices
                     .Symbols
-                    .GetPossibleInheritors(declaration.DeclaredElement?.ShortName ?? "not found")
+                    .GetPossibleInheritors(shortName)
             )
             .ToList();
 

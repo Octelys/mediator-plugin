@@ -1,6 +1,6 @@
 ﻿<Project>
     <PropertyGroup>
-    <SdkVersion>2025.3.0-eap02</SdkVersion>
+    <SdkVersion>2025.3.0-eap07</SdkVersion>
     <Title>Mediator Extensions</Title>
     <Description>Ever got frustrated to find out where was the handler of a Mediator's IRequest or INotification? Say no more. This plugin provides a context action to easily reach the handler of any mediator request. Select your mediator request, click on that action and boom you will be automatically transported to the appropriate handler.</Description>
     <Authors>Octelys</Authors>
