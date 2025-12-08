@@ -46,7 +46,7 @@ jobs:
           dotnet-version: '9.x'
 
       - name: install Java JDK
-        uses: actions/setup-java@v5.0.0
+        uses: actions/setup-java@v5.1.0
         with:
           java-version: 17
           architecture: 'x64'
