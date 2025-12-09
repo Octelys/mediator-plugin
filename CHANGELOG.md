@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 25.12.06XX
+## 25.12.09XX
 - Fix issue #95: updated SDK to 2025.3.
 
 ## 25.10.08XX
