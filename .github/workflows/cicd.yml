@@ -70,13 +70,13 @@ jobs:
           cp src/dotnet/MediatorPlugin/bin/MediatorPlugin.Rider/Debug/MediatorPlugin.dll publish/rider/mediator/dotnet
 
       - name: publish rider plugin
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: mediator.rider.${{ env.VERSION }}
           path: publish/rider
 
       - name: publish resharper plugin
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: mediator.resharper.${{ env.VERSION }}
           path: src/dotnet/MediatorPlugin/bin/MediatorPlugin/Debug/*.nupkg
