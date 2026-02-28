@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 26.02.28XX
+- Support for 2026.1
+
 ## 25.12.09XX
 - Fix issue #95: updated SDK to 2025.3.
 
