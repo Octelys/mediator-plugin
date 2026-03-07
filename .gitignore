@@ -25,6 +25,6 @@ _dotTrace*
 # Project
 /test-solution/.idea/
 /test-solution/packages/
-.idea
+/**/.idea
 */**/Packages
 /**/.intellijPlatform
