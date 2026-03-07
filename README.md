@@ -21,7 +21,7 @@ Boost your navigation superpowers in Rider and ReSharper with this plugin for Me
 ```mermaid
 graph TB
     subgraph "IDE Integration Layer"
-        A1[Rider Action<br/>GoToHandlrAction.kt]
+        A1[Rider Action<br/>GoToHandlerAction.kt]
         A2[ReSharper Provider<br/>MediatorRequestNavigateFromHereProvider.cs]
     end
     
@@ -56,7 +56,7 @@ graph TB
 #### Entry Points
 The plugin provides two main entry points for navigation:
 
-1. **Rider Integration** (`GoToHandlrAction.kt`): A Kotlin-based action that integrates with Rider's action system
+1. **Rider Integration** (`GoToHandlerAction.kt`): A Kotlin-based action that integrates with Rider's action system
 2. **ReSharper Integration** (`MediatorRequestNavigateFromHereProvider.cs`): A C# provider that adds "Go to handler" to ReSharper's context navigation
 
 #### High-Level Workflow
