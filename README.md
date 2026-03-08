@@ -1,4 +1,4 @@
-# ✨ MediatR Extensions for JetBrains Rider & ReSharper
+# ✨ Mediator Extensions for JetBrains Rider & ReSharper
 
 [![Rider Plugin](https://img.shields.io/jetbrains/plugin/v/ca.nosuchcompany.rider.plugins.mediatr)](https://plugins.jetbrains.com/plugin/18313-mediatr-extensions)
 [![ReSharper Plugin](https://img.shields.io/resharper/v/ca.nosuchcompany.mediatrplugin)](https://plugins.jetbrains.com/plugin/18347-mediatr-extensions)
