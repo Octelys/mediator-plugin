@@ -28,3 +28,6 @@ _dotTrace*
 /**/.idea
 */**/Packages
 /**/.intellijPlatform
+
+# NuGet tools
+.nuget/
