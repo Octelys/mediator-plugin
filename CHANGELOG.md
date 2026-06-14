@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 26.04.XXXX
+## 26.06.XXXX
 - Fix issue: register `GoToHandlerAction` as a VS/ReSharper keyboard-assignable action with a default shortcut of `Alt+H`. Users can now find it in Tools > Options > Environment > Keyboard as `GoToHandlerAction`.
 
 ## 26.03.07XX
