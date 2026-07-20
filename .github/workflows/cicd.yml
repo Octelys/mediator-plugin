@@ -41,7 +41,7 @@ jobs:
         run: ./update-version.sh ${{ env.VERSION }}
 
       - name: install .NET SDK
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '9.x'
 
