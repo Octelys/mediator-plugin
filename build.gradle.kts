@@ -35,7 +35,7 @@ repositories {
 }
 
 tasks.wrapper {
-    gradleVersion = "8.13"
+    gradleVersion = "9.0"
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
