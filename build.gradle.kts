@@ -2,7 +2,6 @@ import com.jetbrains.plugin.structure.base.utils.isFile
 import groovy.ant.FileNameFinder
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.intellij.platform.gradle.Constants
-import java.io.ByteArrayOutputStream
 
 plugins {
     id("java")
@@ -54,25 +53,19 @@ sourceSets {
     }
 }
 
-tasks.compileKotlin {
-    compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) }
-}
-
 val setBuildTool by tasks.registering {
     doLast {
         extra["executable"] = "dotnet"
         var args = mutableListOf("msbuild")
 
         if (isWindows) {
-            val stdout = ByteArrayOutputStream()
-            exec {
+            val execOutput = providers.exec {
                 executable("${rootDir}\\tools\\vswhere.exe")
                 args("-latest", "-property", "installationPath", "-products", "*")
-                standardOutput = stdout
                 workingDir(rootDir)
             }
 
-            val directory = stdout.toString().trim()
+            val directory = execOutput.standardOutput.asText.get().trim()
             if (directory.isNotEmpty()) {
                 val files = FileNameFinder().getFileNames("${directory}\\MSBuild", "**/MSBuild.exe")
                 extra["executable"] = files.get(0)
@@ -93,21 +86,21 @@ val compileDotNet by tasks.registering {
         val executable: String by setBuildTool.get().extra
         val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
         arguments.add("/t:Restore;Rebuild")
-        exec {
+        providers.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
-        }
+        }.result.get().assertNormalExitValue()
     }
 }
 
 val testDotNet by tasks.registering {
     doLast {
-        exec {
+        providers.exec {
             executable("dotnet")
             args("test","${DotnetSolution}","--logger","GitHubActions")
             workingDir(rootDir)
-        }
+        }.result.get().assertNormalExitValue()
     }
 }
 
@@ -131,18 +124,20 @@ tasks.buildPlugin {
         arguments.add("/p:PackageOutputPath=${rootDir}/output")
         arguments.add("/p:PackageReleaseNotes=${changeNotes}")
         arguments.add("/p:PackageVersion=${version}")
-        exec {
+        providers.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
-        }
+        }.result.get().assertNormalExitValue()
     }
 }
 
 dependencies {
     intellijPlatform {
-        rider(ProductVersion, useInstaller = false)
+        rider(ProductVersion) { useInstaller.set(false) }
         jetbrainsRuntime()
+        bundledModule("intellij.rider.rdclient.dotnet")
+        bundledModule("intellij.rd.client")
 
         // TODO: add plugins
         // bundledPlugin("uml")
@@ -195,11 +190,11 @@ tasks.publishPlugin {
     token.set("${PublishToken}")
 
     doLast {
-        exec {
+        providers.exec {
             executable("dotnet")
             args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
-        }
+        }.result.get().assertNormalExitValue()
     }
 }
 
