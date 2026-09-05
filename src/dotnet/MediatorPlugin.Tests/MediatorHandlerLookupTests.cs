@@ -18,7 +18,6 @@ namespace Octelys.MediatorPlugin.Tests;
 /// builds the PSI caches, and the plugin resolves handlers the same way it does in the IDE.
 /// </summary>
 [TestPackages("MediatR/12.1.0")]
-[TestReferences("System.Runtime")]
 public class MediatorHandlerLookupTests : BaseTestWithSingleProject
 {
     private string _requestTypeName;
