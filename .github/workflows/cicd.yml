@@ -34,8 +34,20 @@ jobs:
         with:
           dotnet-version: '9.x'
 
+      # The ReSharper SDK drops its own NUnit3.TestAdapter.dll into the output
+      # directory and it cannot be loaded by VSTest, shadowing the working one
+      # from the NUnit3TestAdapter package. Point VSTest straight at the latter.
       - name: test
-        run: dotnet test src/dotnet/MediatorPlugin.Tests/MediatorPlugin.Tests.csproj --logger GitHubActions --logger "trx;LogFileName=results.trx" --results-directory ${{ github.workspace }}/testresults
+        shell: pwsh
+        run: |
+          $packages = if ($env:NUGET_PACKAGES) { $env:NUGET_PACKAGES } else { Join-Path $env:USERPROFILE ".nuget\packages" }
+          $adapter = Join-Path $packages "nunit3testadapter\4.6.0\build\net462"
+          if (-not (Test-Path $adapter)) { throw "NUnit adapter not found at $adapter" }
+          dotnet test src/dotnet/MediatorPlugin.Tests/MediatorPlugin.Tests.csproj `
+            --test-adapter-path $adapter `
+            --logger GitHubActions `
+            --logger "trx;LogFileName=results.trx" `
+            --results-directory "${{ github.workspace }}/testresults"
 
       # VSTest exits 0 when it discovers nothing, so a broken adapter would
       # otherwise report a green build that ran no tests at all.
