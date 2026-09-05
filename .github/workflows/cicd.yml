@@ -35,7 +35,18 @@ jobs:
           dotnet-version: '9.x'
 
       - name: test
-        run: dotnet test src/dotnet/MediatorPlugin.Tests/MediatorPlugin.Tests.csproj --logger GitHubActions
+        run: dotnet test src/dotnet/MediatorPlugin.Tests/MediatorPlugin.Tests.csproj --logger GitHubActions --logger "trx;LogFileName=results.trx" --results-directory ${{ github.workspace }}/testresults
+
+      # VSTest exits 0 when it discovers nothing, so a broken adapter would
+      # otherwise report a green build that ran no tests at all.
+      - name: assert tests actually ran
+        shell: pwsh
+        run: |
+          $trx = Get-ChildItem "${{ github.workspace }}/testresults" -Filter *.trx -Recurse | Select-Object -First 1
+          if (-not $trx) { throw "No .trx produced - the test run did not happen." }
+          $counters = ([xml](Get-Content $trx.FullName)).TestRun.ResultSummary.Counters
+          Write-Host "total=$($counters.total) executed=$($counters.executed) passed=$($counters.passed) failed=$($counters.failed)"
+          if ([int]$counters.executed -lt 1) { throw "No tests were executed." }
 
   build:
     runs-on: ${{ inputs.runs_on || 'ubuntu-latest' }}
