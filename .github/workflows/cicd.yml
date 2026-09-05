@@ -37,6 +37,9 @@ jobs:
       # The ReSharper SDK drops its own NUnit3.TestAdapter.dll into the output
       # directory and it cannot be loaded by VSTest, shadowing the working one
       # from the NUnit3TestAdapter package. Point VSTest straight at the latter.
+      - name: restore
+        run: dotnet restore src/dotnet/MediatorPlugin.Tests/MediatorPlugin.Tests.csproj
+
       - name: test
         shell: pwsh
         run: |
@@ -47,6 +50,7 @@ jobs:
             --test-adapter-path $adapter `
             --logger GitHubActions `
             --logger "trx;LogFileName=results.trx" `
+            --no-restore `
             --results-directory "${{ github.workspace }}/testresults"
 
       # VSTest exits 0 when it discovers nothing, so a broken adapter would
