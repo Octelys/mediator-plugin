@@ -19,6 +19,24 @@ on:
         description: 'Runner'
 
 jobs:
+  test:
+    name: test (dotnet)
+    # The ReSharper test framework targets net472 and needs the .NET Framework
+    # runtime, so these tests cannot run on the ubuntu runner used by `build`.
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - name: install .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '9.x'
+
+      - name: test
+        run: dotnet test src/dotnet/MediatorPlugin.Tests/MediatorPlugin.Tests.csproj --logger GitHubActions
+
   build:
     runs-on: ${{ inputs.runs_on || 'ubuntu-latest' }}
     steps:
