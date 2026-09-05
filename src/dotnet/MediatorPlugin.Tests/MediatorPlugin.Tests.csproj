@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="JetBrains.ReSharper.SDK.Tests" Version="$(SdkVersion)" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+        <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" />
     </ItemGroup>
 
     <ItemGroup>
