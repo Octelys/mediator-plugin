@@ -10,7 +10,7 @@ using ReSharper.MediatorPlugin.Actions;
 
 [assembly: Apartment(ApartmentState.STA)]
 
-namespace NoSuchCompany.MediatrPlugin.Tests;
+namespace Octelys.MediatorPlugin.Tests;
 
 [ZoneDefinition]
 public class ContextActionsTestEnvironmentZone : ITestsEnvZone, IRequire<PsiFeatureTestZone>, IRequire<IContextActionsZone>

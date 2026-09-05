@@ -4,11 +4,13 @@
         <TargetFramework>net472</TargetFramework>
         <IsPackable>false</IsPackable>
         <LangVersion>latest</LangVersion>
-        <RootNamespace>MediatorPlugin.Tests</RootNamespace>
+        <RootNamespace>Octelys.MediatorPlugin.Tests</RootNamespace>
+        <AssemblyName>Octelys.MediatorPlugin.Tests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="JetBrains.ReSharper.SDK.Tests" Version="$(SdkVersion)" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     </ItemGroup>
 
     <ItemGroup>

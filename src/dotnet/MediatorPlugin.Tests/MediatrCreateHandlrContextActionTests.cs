@@ -3,7 +3,7 @@ using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
 using ReSharper.MediatorPlugin.Actions;
 
-namespace NoSuchCompany.MediatrPlugin.Tests;
+namespace Octelys.MediatorPlugin.Tests;
 
 [TestPackages("MediatR/12.1.0")]
 [TestReferences("System.Runtime")] // needed for IReadOnlyCollection type
