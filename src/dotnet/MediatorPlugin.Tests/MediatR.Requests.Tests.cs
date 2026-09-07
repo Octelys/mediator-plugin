@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Octelys.MediatorPlugin.Tests;
 
 [TestNetCoreLatest]
-[TestPackages("MediatR/12.5.0")]
+[TestPackages("MediatR/12.5.0", "MediatR/13.1.0", "MediatR/14.2.0")]
 [TestReferences("System.Runtime")]
 public class MediatRRequestsTests : LookupTestBase
 {
