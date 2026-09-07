@@ -52,6 +52,15 @@
         <Compile Update="Mediator.Requests.V3.Tests.cs">
           <DependentUpon>Mediator.Requests.Tests.cs</DependentUpon>
         </Compile>
+        <Compile Update="GoToHandler.CaretTests.V12.cs">
+          <DependentUpon>GoToHandler.CaretTests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="GoToHandler.CaretTests.V13.cs">
+          <DependentUpon>GoToHandler.CaretTests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="GoToHandler.CaretTests.V14.cs">
+          <DependentUpon>GoToHandler.CaretTests.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

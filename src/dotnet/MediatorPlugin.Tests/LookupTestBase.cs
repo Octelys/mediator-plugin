@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using JetBrains.Lifetimes;
 using JetBrains.ProjectModel;
@@ -9,6 +10,7 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
+using Octelys.MediatorPlugin.Tests.Infrastructure;
 using ReSharper.MediatorPlugin.Services.Libraries;
 
 namespace Octelys.MediatorPlugin.Tests;
@@ -23,6 +25,7 @@ public abstract class LookupTestBase : BaseTestWithSingleProject
 {
     private string _requestTypeName;
     private string[] _expectedHandlerNames;
+    private string[] _expectedHandlerFilePaths;
 
     protected override string RelativeTestDataPath => "TestSolution";
 
@@ -42,7 +45,18 @@ public abstract class LookupTestBase : BaseTestWithSingleProject
         {
             IIdentifier requestIdentifier = FindDeclarationIdentifier(solution, _requestTypeName);
 
-            IEnumerable<ITypeElement> handlers = new LibraryAdaptor().FindHandlers(requestIdentifier);
+            ITypeElement[] handlers = new LibraryAdaptor().FindHandlers(requestIdentifier).ToArray();
+
+            if (_expectedHandlerFilePaths is not null)
+            {
+                string[] handlerFilePaths = handlers
+                    .SelectMany(GetRelativeFilePaths)
+                    .OrderBy(path => path)
+                    .ToArray();
+
+                Assert.That(handlerFilePaths, Is.EqualTo(_expectedHandlerFilePaths.OrderBy(path => path).ToArray()));
+                return;
+            }
 
             string[] handlerNames = handlers
                 .Select(handler => handler.ShortName)
@@ -68,6 +82,43 @@ public abstract class LookupTestBase : BaseTestWithSingleProject
         _expectedHandlerNames = expectedHandlerNames;
 
         DoTestSolution(fileNames);
+    }
+
+    /// <summary>
+    /// Loads the given files as a test solution and asserts that the request or notification
+    /// resolves to handlers declared in exactly the expected files (relative to
+    /// test/data/TestSolution, e.g. "MediatR/Handlers/GetEntityHandler.cs") - i.e. the file(s)
+    /// "Go to Handler" would navigate to when the caret sits on the request. The lookup itself
+    /// runs in <see cref="DoTest" />.
+    /// </summary>
+    protected void AssertHandlerFilesFor
+    (
+        string requestTypeName,
+        string[] expectedHandlerFilePaths,
+        params string[] fileNames
+    )
+    {
+        _requestTypeName = requestTypeName;
+        _expectedHandlerFilePaths = expectedHandlerFilePaths;
+
+        DoTestSolution(fileNames);
+    }
+
+    /// <summary>
+    /// Resolves the on-disk file(s) declaring the given handler back to their path relative to
+    /// test/data/TestSolution, matching the relative path form used to load test files (e.g. via
+    /// <see cref="TestSolutionFiles" />).
+    /// </summary>
+    private static IEnumerable<string> GetRelativeFilePaths
+    (
+        ITypeElement handler
+    )
+    {
+        return handler
+            .GetSourceFiles()
+            .Select(sourceFile => sourceFile.GetLocation().FullPath)
+            .Select(fullPath => fullPath.Substring(TestSolutionFiles.RootPath.Length + 1))
+            .Select(relativePath => relativePath.Replace(Path.DirectorySeparatorChar, '/'));
     }
 
     /// <summary>
