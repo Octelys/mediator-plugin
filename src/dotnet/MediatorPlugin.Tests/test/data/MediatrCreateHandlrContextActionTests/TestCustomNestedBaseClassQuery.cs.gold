@@ -17,7 +17,7 @@ public class SomeQuery : GetItemsQuery<SomeDto>
 {
 }
 
-public class SomeQueryHandler : IRequestHandler<SomeQuery, IReadOnlyCollection<SomeDto>>
+internal class SomeQueryHandler : IRequestHandler<SomeQuery, IReadOnlyCollection<SomeDto>>
 {
   public Task<IReadOnlyCollection<SomeDto>> Handle(SomeQuery request, CancellationToken cancellationToken)
   {

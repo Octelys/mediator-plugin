@@ -17,6 +17,9 @@ namespace Octelys.MediatorPlugin.Tests;
 /// Exercises the handler lookup against a real solution: the framework restores MediatR,
 /// builds the PSI caches, and the plugin resolves handlers the same way it does in the IDE.
 /// </summary>
+// BaseTestWithSolution defaults to [TestNetFramework35], whose platform package is not on
+// nuget.org; the context action tests get their framework from CSharpContextActionExecuteTestBase.
+[TestNetCoreLatest]
 [TestPackages("MediatR/12.1.0")]
 [TestReferences("System.Runtime")]
 public class MediatorHandlerLookupTests : BaseTestWithSingleProject

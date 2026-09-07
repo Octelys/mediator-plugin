@@ -18,7 +18,7 @@ public class SomeQuery : GetItemsQuery<OtherDto>
 {
 }
 
-public class SomeQueryHandler : IRequestHandler<SomeQuery, IDictionary<SomeDto, OtherDto>>
+internal class SomeQueryHandler : IRequestHandler<SomeQuery, IDictionary<SomeDto, OtherDto>>
 {
   public Task<IDictionary<SomeDto, OtherDto>> Handle(SomeQuery request, CancellationToken cancellationToken)
   {

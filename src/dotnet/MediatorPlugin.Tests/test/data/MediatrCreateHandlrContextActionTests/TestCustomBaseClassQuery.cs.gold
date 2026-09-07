@@ -11,7 +11,7 @@ public class SomeQuery : BaseQuery<SomeDto>
 {
 }
 
-public class SomeQueryHandler : IRequestHandler<SomeQuery, SomeDto>
+internal class SomeQueryHandler : IRequestHandler<SomeQuery, SomeDto>
 {
   public Task<SomeDto> Handle(SomeQuery request, CancellationToken cancellationToken)
   {
