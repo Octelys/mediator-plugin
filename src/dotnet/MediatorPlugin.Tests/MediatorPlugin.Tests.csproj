@@ -4,20 +4,67 @@
         <TargetFramework>net472</TargetFramework>
         <IsPackable>false</IsPackable>
         <LangVersion>latest</LangVersion>
-        <RootNamespace>MediatorPlugin.Tests</RootNamespace>
+        <RootNamespace>Octelys.MediatorPlugin.Tests</RootNamespace>
+        <AssemblyName>Octelys.MediatorPlugin.Tests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="JetBrains.ReSharper.SDK.Tests" Version="$(SdkVersion)" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+        <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
     </ItemGroup>
 
     <ItemGroup>
         <Compile Remove="test/**/*" />
         <None Include="test/**/*" />
         <None Remove="Packages\**" />
+        <Compile Update="MediatR.Notifications.V12.Tests.cs">
+          <DependentUpon>MediatR.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Notifications.V13.Tests.cs">
+          <DependentUpon>MediatR.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Notifications.V14.Tests.cs">
+          <DependentUpon>MediatR.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Requests.V12.Tests.cs">
+          <DependentUpon>MediatR.Requests.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Requests.V13.Tests.cs">
+          <DependentUpon>MediatR.Requests.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Requests.V14.Tests.cs">
+          <DependentUpon>MediatR.Requests.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.CreateHandlR.V12.Tests.cs">
+          <DependentUpon>MediatR.CreateHandlR.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.CreateHandlR.V13.Tests.cs">
+          <DependentUpon>MediatR.CreateHandlR.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.CreateHandlR.V14.Tests.cs">
+          <DependentUpon>MediatR.CreateHandlR.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Mediator.Notifications.V3.Tests.cs">
+          <DependentUpon>Mediator.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Mediator.Requests.V3.Tests.cs">
+          <DependentUpon>Mediator.Requests.Tests.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\MediatorPlugin\MediatorPlugin.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="test\data\TestSolution\Entities\" />
+      <Folder Include="test\data\TestSolution\Mediator\Handlers\" />
+      <Folder Include="test\data\TestSolution\Mediator\Notifications\" />
+      <Folder Include="test\data\TestSolution\Mediator\Requests\" />
+      <Folder Include="test\data\TestSolution\MediatR\Handlers\" />
+      <Folder Include="test\data\TestSolution\MediatR\Notifications\" />
+      <Folder Include="test\data\TestSolution\MediatR\Requests\" />
     </ItemGroup>
 </Project>

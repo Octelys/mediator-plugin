@@ -5,7 +5,7 @@ public class SomeCommand : IRequest
 {
 }
 
-public class SomeCommandHandler : IRequestHandler<SomeCommand>
+internal class SomeCommandHandler : IRequestHandler<SomeCommand>
 {
   public Task Handle(SomeCommand request, CancellationToken cancellationToken)
   {

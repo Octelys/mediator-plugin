@@ -3,16 +3,15 @@ using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
 using ReSharper.MediatorPlugin.Actions;
 
-namespace NoSuchCompany.MediatrPlugin.Tests;
+namespace Octelys.MediatorPlugin.Tests;
 
-[TestPackages("MediatR/12.1.0")]
 [TestReferences("System.Runtime")] // needed for IReadOnlyCollection type
-public class MediatrCreateHandlrContextActionTests : CSharpContextActionExecuteTestBase<CreateHandlrContextAction>
+public abstract class MediatRCreateHandlrContextActionTestsBase : CSharpContextActionExecuteTestBase<CreateHandlrContextAction>
 {
-    protected override string RelativeTestDataPath => nameof(MediatrCreateHandlrContextActionTests);
+    protected override string RelativeTestDataPath => "MediatrCreateHandlrContextActionTests";
 
     protected override string ExtraPath => "";
-    
+
     [Test, Order(0)] public void TestEnvironmentSetupCorrectly() => Assert.Pass();
     [Test] public void TestCommand() => DoNamedTest();
     [Test] public void TestSimpleQuery() => DoNamedTest();
