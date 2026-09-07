@@ -14,20 +14,17 @@ using ReSharper.MediatorPlugin.Services.Libraries;
 namespace Octelys.MediatorPlugin.Tests;
 
 /// <summary>
-/// Exercises the handler lookup against a real solution: the framework restores MediatR,
-/// builds the PSI caches, and the plugin resolves handlers the same way it does in the IDE.
+/// Shared plumbing for tests that load a small test solution and assert which handlers the
+/// plugin resolves for a given request or notification type. Test data lives under
+/// test/data/TestSolution, organized per library (MediatR, Mediator) and kind (Requests,
+/// Notifications, Handlers, Entities).
 /// </summary>
-// BaseTestWithSolution defaults to [TestNetFramework35], whose platform package is not on
-// nuget.org; the context action tests get their framework from CSharpContextActionExecuteTestBase.
-[TestNetCoreLatest]
-[TestPackages("MediatR/12.1.0")]
-[TestReferences("System.Runtime")]
-public class MediatorHandlerLookupTests : BaseTestWithSingleProject
+public abstract class LookupTestBase : BaseTestWithSingleProject
 {
     private string _requestTypeName;
     private string[] _expectedHandlerNames;
 
-    protected override string RelativeTestDataPath => nameof(MediatorHandlerLookupTests);
+    protected override string RelativeTestDataPath => "TestSolution";
 
     /// <summary>
     /// Runs inside the loaded test solution: the framework calls this once the project of the
@@ -56,73 +53,11 @@ public class MediatorHandlerLookupTests : BaseTestWithSingleProject
         }
     }
 
-    [Test]
-    public void FindHandlers_HandlerIsDeclaredInAnotherFile_HandlerReturned()
-    {
-        //  Act & Assert.
-        AssertHandlersFor
-        (
-            "SomeQuery",
-            ["SomeQueryHandler"],
-            "SomeQuery.cs", "SomeQueryHandler.cs"
-        );
-    }
-
-    [Test]
-    public void FindHandlers_RequestIsACommandWithoutResponse_HandlerReturned()
-    {
-        //  Act & Assert.
-        AssertHandlersFor
-        (
-            "SomeCommand",
-            ["SomeCommandHandler"],
-            "SomeCommand.cs"
-        );
-    }
-
-    [Test]
-    public void FindHandlers_RequestIsANotification_EveryHandlerReturned()
-    {
-        //  Act & Assert.
-        AssertHandlersFor
-        (
-            "SomethingHappened",
-            ["AuditSomethingHappenedHandler", "NotifySomethingHappenedHandler"],
-            "SomethingHappened.cs"
-        );
-    }
-
-    [Test]
-    public void FindHandlers_RequestHasNoHandler_NoHandlerReturned()
-    {
-        //  Act & Assert.
-        AssertHandlersFor
-        (
-            "OrphanQuery",
-            [],
-            "OrphanQuery.cs"
-        );
-    }
-
-    [Test]
-    public void FindHandlers_TypeIsNotARequest_NoHandlerReturned()
-    {
-        //  Act & Assert.
-        AssertHandlersFor
-        (
-            "NotARequest",
-            [],
-            "NotARequest.cs"
-        );
-    }
-
-    //  Helper methods.
-
     /// <summary>
-    /// Loads the given files as a test solution and asserts that the request resolves to exactly
-    /// the expected handlers; the lookup itself runs in <see cref="DoTest" />.
+    /// Loads the given files as a test solution and asserts that the request or notification
+    /// resolves to exactly the expected handlers; the lookup itself runs in <see cref="DoTest" />.
     /// </summary>
-    private void AssertHandlersFor
+    protected void AssertHandlersFor
     (
         string requestTypeName,
         string[] expectedHandlerNames,

@@ -24,4 +24,14 @@
     <ItemGroup>
         <ProjectReference Include="..\MediatorPlugin\MediatorPlugin.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="test\data\TestSolution\Entities\" />
+      <Folder Include="test\data\TestSolution\Mediator\Handlers\" />
+      <Folder Include="test\data\TestSolution\Mediator\Notifications\" />
+      <Folder Include="test\data\TestSolution\Mediator\Requests\" />
+      <Folder Include="test\data\TestSolution\MediatR\Handlers\" />
+      <Folder Include="test\data\TestSolution\MediatR\Notifications\" />
+      <Folder Include="test\data\TestSolution\MediatR\Requests\" />
+    </ItemGroup>
 </Project>
