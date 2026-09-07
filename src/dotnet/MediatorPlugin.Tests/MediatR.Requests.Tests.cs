@@ -115,4 +115,16 @@ public abstract class MediatRRequestsTestsBase : LookupTestBase
             TestSolutionFiles.MediatR
         );
     }
+
+    [Test]
+    public void FindHandlers_CaretOnRequest_HandlerFileReturned()
+    {
+        //  Act & Assert.
+        AssertHandlerFilesFor
+        (
+            "Domain.GetEntityRequest",
+            ["MediatR/Handlers/GetEntityHandler.cs"],
+            TestSolutionFiles.MediatR
+        );
+    }
 }

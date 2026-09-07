@@ -14,6 +14,13 @@ public static class TestSolutionFiles
 {
     private static readonly string TestSolutionPath = ResolveTestSolutionPath();
 
+    /// <summary>
+    /// Absolute path to the TestSolution folder, used to turn an on-disk file path (e.g. a
+    /// resolved handler's source file) back into the relative path form used elsewhere in these
+    /// tests (e.g. "MediatR/Handlers/GetEntityHandler.cs").
+    /// </summary>
+    public static string RootPath => TestSolutionPath;
+
     public static string[] MediatR { get; } = LibraryFiles("MediatR");
 
     public static string[] Mediator { get; } = LibraryFiles("Mediator");
