@@ -72,7 +72,10 @@ public abstract class LookupTestBase : BaseTestWithSingleProject
 
     /// <summary>
     /// Returns the name token of the type declaration, which is the node the plugin receives
-    /// when the caret sits on a request in the editor.
+    /// when the caret sits on a request in the editor. <paramref name="typeName" /> may be a
+    /// short name ("GetEntityRequest") when it is unique in the loaded files, or a fully
+    /// qualified name ("Domain.OtherNamespace.GetEntityRequest") to disambiguate types that
+    /// share a short name across namespaces.
     /// </summary>
     private static IIdentifier FindDeclarationIdentifier
     (
@@ -80,15 +83,34 @@ public abstract class LookupTestBase : BaseTestWithSingleProject
         string typeName
     )
     {
-        IIdentifier identifier = EnumerateIdentifiers(solution)
-            .FirstOrDefault
-            (
-                candidate => candidate.Name == typeName && candidate.Parent is IClassLikeDeclaration
-            );
+        bool isQualified = typeName.Contains('.');
 
-        Assert.That(identifier, Is.Not.Null, $"No declaration of '{typeName}' was found in the test solution.");
+        IIdentifier[] candidates = EnumerateIdentifiers(solution)
+            .Where(candidate => candidate.Parent is IClassLikeDeclaration)
+            .Where(candidate => isQualified ? GetFullName(candidate) == typeName : candidate.Name == typeName)
+            .ToArray();
 
-        return identifier;
+        Assert.That
+        (
+            candidates,
+            Has.Length.EqualTo(1),
+            candidates.Length == 0
+                ? $"No declaration of '{typeName}' was found in the test solution."
+                : $"Multiple declarations of '{typeName}' were found: {string.Join(", ", candidates.Select(GetFullName))}. " +
+                  "Qualify the name with its namespace to disambiguate."
+        );
+
+        return candidates[0];
+    }
+
+    private static string GetFullName
+    (
+        IIdentifier identifier
+    )
+    {
+        IClassLikeDeclaration declaration = (IClassLikeDeclaration)identifier.Parent;
+
+        return ((ITypeElement)declaration.DeclaredElement).GetClrName().FullName;
     }
 
     private static IEnumerable<IIdentifier> EnumerateIdentifiers

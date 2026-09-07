@@ -17,7 +17,7 @@ public class MediatRNotificationsTests : LookupTestBase
         (
             "CustomNotification",
             ["FirstCustomNotificationHandler", "SecondCustomNotificationHandler"],
-            "MediatR/Notifications/CustomNotification.cs", "MediatR/Handlers/FirstCustomNotificationHandler.cs", "MediatR/Handlers/SecondCustomNotificationHandler.cs"
+            TestSolutionFiles.MediatR
         );
     }
 }

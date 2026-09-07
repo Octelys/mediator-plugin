@@ -17,7 +17,7 @@ public class MediatorNotificationsTests : LookupTestBase
         (
             "NewMediatorNotification",
             ["NewMediatorNotificationHandler", "MediatorNotificationHandler"],
-            "Mediator/Notifications/NewMediatorNotification.cs", "Mediator/Handlers/NewMediatorNotificationHandler.cs", "Mediator/Handlers/OtherMediatorNotificationHandler.cs", "Entities/Dto.cs"
+            TestSolutionFiles.Mediator
         );
     }
 }

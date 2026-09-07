@@ -15,9 +15,9 @@ public class MediatRRequestsTests : LookupTestBase
         //  Act & Assert.
         AssertHandlersFor
         (
-            "GetEntityRequest",
+            "Domain.GetEntityRequest",
             ["GetEntityHandler"],
-            "MediatR/Requests/GetEntityRequest.cs", "MediatR/Handlers/GetEntityHandler.cs", "Entities/GetEntityResponse.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -27,9 +27,9 @@ public class MediatRRequestsTests : LookupTestBase
         //  Act & Assert.
         AssertHandlersFor
         (
-            "GetEntityRequest",
+            "Domain.OtherNamespace.GetEntityRequest",
             ["GetEntityHandler"],
-            "MediatR/Requests/OtherNamespace/GetEntityRequest.cs", "MediatR/Handlers/OtherNamespace/GetEntityHandler.cs", "Entities/OtherNamespace/GetEntityResponse.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -41,7 +41,7 @@ public class MediatRRequestsTests : LookupTestBase
         (
             "CustomClassRequest",
             ["CustomClassHandler", "DuplicateHandler"],
-            "MediatR/Requests/ICustomRequest.cs", "MediatR/Requests/CustomClassRequest.cs", "MediatR/Handlers/CustomClassHandler.cs", "MediatR/Handlers/DuplicateHandler.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -53,7 +53,7 @@ public class MediatRRequestsTests : LookupTestBase
         (
             "CustomRecordRequest",
             ["CustomRecordHandler"],
-            "MediatR/Requests/ICustomRequest.cs", "MediatR/Requests/CustomRecordRequest.cs", "MediatR/Handlers/CustomRecordHandler.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -65,7 +65,7 @@ public class MediatRRequestsTests : LookupTestBase
         (
             "InnerClassRequest",
             ["InnerClassHandler"],
-            "MediatR/Requests/InnerClassRequest.cs", "MediatR/Handlers/OuterClassHandler.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -77,7 +77,7 @@ public class MediatRRequestsTests : LookupTestBase
         (
             "OtherRequest",
             ["BaseRequestHandler"],
-            "MediatR/Requests/ICustomRequest.cs", "MediatR/Requests/OtherRequest.cs", "MediatR/Requests/NewRequest.cs", "MediatR/Handlers/BaseRequestHandler.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -89,7 +89,7 @@ public class MediatRRequestsTests : LookupTestBase
         (
             "NewRequest",
             [],
-            "MediatR/Requests/NewRequest.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -101,7 +101,7 @@ public class MediatRRequestsTests : LookupTestBase
         (
             "ReadonlyRecordStructRequest",
             ["ReadonlyRecordStructHandler"],
-            "MediatR/Requests/ReadonlyRecordStructRequest.cs", "MediatR/Handlers/ReadonlyRecordStructHandler.cs", "Entities/ReadonlyRecordStructResponse.cs"
+            TestSolutionFiles.MediatR
         );
     }
 
@@ -113,7 +113,7 @@ public class MediatRRequestsTests : LookupTestBase
         (
             "XCommandRequest",
             ["XCommandHandler"],
-            "MediatR/Requests/XCommandRequest.cs", "MediatR/Handlers/XCommandHandler.cs", "MediatR/Handlers/ISharedCommandHandler.cs", "Entities/Dto.cs"
+            TestSolutionFiles.MediatR
         );
     }
 }

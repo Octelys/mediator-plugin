@@ -17,7 +17,7 @@ public class MediatorRequestsTests : LookupTestBase
         (
             "NewMediatorRequest",
             ["NewMediatorHandler"],
-            "Mediator/Requests/NewMediatorRequest.cs", "Mediator/Handlers/NewMediatorHandler.cs", "Entities/Dto.cs"
+            TestSolutionFiles.Mediator
         );
     }
 }
