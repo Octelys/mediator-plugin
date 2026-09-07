@@ -32,13 +32,6 @@ dotnet test src/dotnet/MediatorPlugin.Tests/MediatorPlugin.Tests.csproj
   `_PLACEHOLDER_` on purpose. CI stamps them via `update-version.sh`. Never commit a
   concrete version there.
 
-## Conventions
-
-- Branches: `features/<slug>` or `bugs/<slug>`, PRs target `main`.
-- Tests must follow [docs/unit-test-guidelines.md](docs/unit-test-guidelines.md):
-  `MethodName_ScenarioInPresentTense_ExpectedResult` naming, AAA section comments, and
-  one call per line in fluent chains. Read it before writing or editing a test class.
-
 ## File editing
 
 - Modify files with your editor/patch tools (str-replace, create-file, apply-patch).
