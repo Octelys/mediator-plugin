@@ -5,9 +5,8 @@ using Octelys.MediatorPlugin.Tests.Infrastructure;
 namespace Octelys.MediatorPlugin.Tests;
 
 [TestNetCoreLatest]
-[MediatorTestPackages]
 [TestReferences("System.Runtime")]
-public class MediatorNotificationsTests : LookupTestBase
+public abstract class MediatorNotificationsTestsBase : LookupTestBase
 {
     [Test]
     public void FindHandlers_NotificationHasMultipleHandlers_EveryHandlerReturned()

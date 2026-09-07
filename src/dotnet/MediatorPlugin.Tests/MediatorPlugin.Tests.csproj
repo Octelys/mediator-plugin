@@ -46,6 +46,12 @@
         <Compile Update="MediatR.CreateHandlR.V14.Tests.cs">
           <DependentUpon>MediatR.CreateHandlR.Tests.cs</DependentUpon>
         </Compile>
+        <Compile Update="Mediator.Notifications.V3.Tests.cs">
+          <DependentUpon>Mediator.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Mediator.Requests.V3.Tests.cs">
+          <DependentUpon>Mediator.Requests.Tests.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
