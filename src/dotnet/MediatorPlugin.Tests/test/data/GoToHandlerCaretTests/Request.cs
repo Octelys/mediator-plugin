@@ -1,7 +1,7 @@
 using MediatR;
 
-namespace Domain;
+namespace Domain{caret};
 
-public class GetEntity{caret}Request : IRequest<string>
+public class GetEntityRequest : IRequest<string>
 {
 }
