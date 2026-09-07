@@ -1,10 +1,11 @@
 using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
+using Octelys.MediatorPlugin.Tests.Infrastructure;
 
 namespace Octelys.MediatorPlugin.Tests;
 
 [TestNetCoreLatest]
-[TestPackages("Mediator.Abstractions/3.0.1")]
+[MediatorTestPackages]
 [TestReferences("System.Runtime")]
 public class MediatorNotificationsTests : LookupTestBase
 {

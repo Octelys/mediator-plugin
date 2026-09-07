@@ -1,10 +1,11 @@
 using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
+using Octelys.MediatorPlugin.Tests.Infrastructure;
 
 namespace Octelys.MediatorPlugin.Tests;
 
 [TestNetCoreLatest]
-[TestPackages("MediatR/12.5.0", "MediatR/13.1.0", "MediatR/14.2.0")]
+[MediatRTestPackages]
 [TestReferences("System.Runtime")]
 public class MediatRRequestsTests : LookupTestBase
 {
