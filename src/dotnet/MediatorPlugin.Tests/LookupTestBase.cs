@@ -80,6 +80,7 @@ public abstract class LookupTestBase : BaseTestWithSingleProject
     {
         _requestTypeName = requestTypeName;
         _expectedHandlerNames = expectedHandlerNames;
+        _expectedHandlerFilePaths = null;
 
         DoTestSolution(fileNames);
     }
@@ -99,6 +100,7 @@ public abstract class LookupTestBase : BaseTestWithSingleProject
     )
     {
         _requestTypeName = requestTypeName;
+        _expectedHandlerNames = null;
         _expectedHandlerFilePaths = expectedHandlerFilePaths;
 
         DoTestSolution(fileNames);
