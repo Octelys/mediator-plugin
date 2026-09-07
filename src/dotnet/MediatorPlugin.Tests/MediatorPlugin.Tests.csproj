@@ -19,6 +19,33 @@
         <Compile Remove="test/**/*" />
         <None Include="test/**/*" />
         <None Remove="Packages\**" />
+        <Compile Update="MediatR.Notifications.V12.Tests.cs">
+          <DependentUpon>MediatR.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Notifications.V13.Tests.cs">
+          <DependentUpon>MediatR.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Notifications.V14.Tests.cs">
+          <DependentUpon>MediatR.Notifications.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Requests.V12.Tests.cs">
+          <DependentUpon>MediatR.Requests.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Requests.V13.Tests.cs">
+          <DependentUpon>MediatR.Requests.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.Requests.V14.Tests.cs">
+          <DependentUpon>MediatR.Requests.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.CreateHandlR.V12.Tests.cs">
+          <DependentUpon>MediatR.CreateHandlR.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.CreateHandlR.V13.Tests.cs">
+          <DependentUpon>MediatR.CreateHandlR.Tests.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MediatR.CreateHandlR.V14.Tests.cs">
+          <DependentUpon>MediatR.CreateHandlR.Tests.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

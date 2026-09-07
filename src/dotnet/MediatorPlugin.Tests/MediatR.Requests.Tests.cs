@@ -5,9 +5,8 @@ using Octelys.MediatorPlugin.Tests.Infrastructure;
 namespace Octelys.MediatorPlugin.Tests;
 
 [TestNetCoreLatest]
-[MediatRTestPackages]
 [TestReferences("System.Runtime")]
-public class MediatRRequestsTests : LookupTestBase
+public abstract class MediatRRequestsTestsBase : LookupTestBase
 {
     [Test]
     public void FindHandlers_HandlerDeclaredInSameNamespace_HandlerReturned()
