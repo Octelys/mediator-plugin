@@ -8,9 +8,9 @@ namespace Octelys.MediatorPlugin.Tests;
 
 [MediatRTestPackages]
 [TestReferences("System.Runtime")] // needed for IReadOnlyCollection type
-public class MediatrCreateHandlrContextActionTests : CSharpContextActionExecuteTestBase<CreateHandlrContextAction>
+public class MediatRCreateHandlrContextActionTests : CSharpContextActionExecuteTestBase<CreateHandlrContextAction>
 {
-    protected override string RelativeTestDataPath => nameof(MediatrCreateHandlrContextActionTests);
+    protected override string RelativeTestDataPath => nameof(MediatRCreateHandlrContextActionTests);
 
     protected override string ExtraPath => "";
     
