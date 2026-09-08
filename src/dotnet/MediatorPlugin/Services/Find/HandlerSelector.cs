@@ -7,6 +7,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using ReSharper.MediatorPlugin.Diagnostics;
+using ReSharper.MediatorPlugin.ReSharper.Psi.Tree;
 using ReSharper.MediatorPlugin.Services.Libraries;
 using ReSharper.MediatorPlugin.Services.Navigation;
 using System.Collections.Generic;
@@ -34,13 +35,15 @@ internal sealed class HandlerSelector : IHandlerSelector
     public void NavigateToHandler
     (
         ISolution solution,
-        ITreeNode selectedTreeNode,
+        ITreeNode? selectedTreeNode,
         INavigationOptionsFactory navigationOptionsFactory
     )
     {
-        if (selectedTreeNode is not IIdentifier selectedIdentifier)
+        IIdentifier? selectedIdentifier = MediatorCallSite.ResolveRequestIdentifier(selectedTreeNode);
+
+        if (selectedIdentifier is null)
         {
-            Logger.Instance.Log(LoggingLevel.VERBOSE, $"Selected element is not an instance {nameof(IIdentifier)}");
+            Logger.Instance.Log(LoggingLevel.VERBOSE, "Selected element is not a Mediator request or dispatch call");
             return;
         }
 

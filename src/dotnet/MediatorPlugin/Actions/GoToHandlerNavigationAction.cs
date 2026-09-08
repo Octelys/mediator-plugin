@@ -7,6 +7,7 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
 using JetBrains.ReSharper.Psi.Tree;
 using ReSharper.MediatorPlugin.Diagnostics;
+using ReSharper.MediatorPlugin.ReSharper.Psi.Tree;
 using ReSharper.MediatorPlugin.Services.Find;
 using ReSharper.MediatorPlugin.Services.Navigation;
 
@@ -23,7 +24,9 @@ public class GoToHandlerNavigationAction : IExecutableAction
     {
         var selectedTreeNode = context.GetSelectedTreeNode<ITreeNode>();
 
-        if (selectedTreeNode is not IIdentifier identifier)
+        IIdentifier? identifier = MediatorCallSite.ResolveRequestIdentifier(selectedTreeNode);
+
+        if (identifier is null)
             return nextUpdate.Invoke();
 
         return _handlerSelector.IsMediatorRequestSupported(identifier);
@@ -35,12 +38,6 @@ public class GoToHandlerNavigationAction : IExecutableAction
 
         var solution = context.GetComponent<ISolution>();
         var selectedTreeNode = context.GetSelectedTreeNode<ITreeNode>();
-
-        if (selectedTreeNode is not IIdentifier)
-        {
-            Logger.Instance.Log(LoggingLevel.VERBOSE, "Selected element is not an identifier");
-            return;
-        }
 
         _handlerSelector.NavigateToHandler
         (

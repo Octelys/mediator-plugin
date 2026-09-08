@@ -33,18 +33,12 @@ public sealed class MediatorRequestNavigateFromHereProvider : INavigateFromHereP
                     var solution = dataContext.GetComponent<ISolution>();
                     var selectedTreeNode = dataContext.GetSelectedTreeNode<ITreeNode>();
 
-                    if (selectedTreeNode is not IIdentifier)
-                    {
-                        Logger.Instance.Log(LoggingLevel.VERBOSE, $"Selected element is not an instance {nameof(IIdentifier)}");
-                        return;
-                    }
-                    
                     _handlerSelector.NavigateToHandler
                     (
                         solution,
                         selectedTreeNode,
                         new DataContextNavigationOptionsFactory(dataContext)
-                    ); 
+                    );
                 }
             )
         };
