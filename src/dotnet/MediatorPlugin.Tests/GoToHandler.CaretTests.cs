@@ -65,7 +65,7 @@ public abstract class GoToHandlerCaretTestsBase : BaseTestWithTextControl
 
             ITypeElement[] handlers = new LibraryAdaptor().FindHandlers(requestIdentifier).ToArray();
 
-            if (TestsExpectingNoHandler.Contains(TestName))
+            if (TestsExpectingNoHandler.Contains(TestMethodName))
             {
                 Assert.That(handlers, Is.Empty, "Expected no handler to be resolved from this caret position.");
 
