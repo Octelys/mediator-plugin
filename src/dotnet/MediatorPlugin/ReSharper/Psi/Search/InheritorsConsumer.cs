@@ -6,7 +6,7 @@ namespace ReSharper.MediatorPlugin.ReSharper.Psi.Search;
 
 internal sealed class InheritorsConsumer : IFindResultConsumer<ITypeElement>
 {
-    private const int MaxInheritors = 50;
+    private const int MaxInheritors = 300;
 
     private readonly HashSet<ITypeElement> _elements = new();
 
