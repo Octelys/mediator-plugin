@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 26.09.04XX
+## 26.09.19XX
 - "Go to Handler" now also works with the caret anywhere inside a `mediator.Send(...)` /
   `Publish(...)` call: the first argument's type is resolved, so there is no need to navigate to the
   request declaration first.
