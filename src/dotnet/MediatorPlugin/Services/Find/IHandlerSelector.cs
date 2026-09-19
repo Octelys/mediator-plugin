@@ -14,7 +14,7 @@ internal interface IHandlerSelector
     void NavigateToHandler
     (
         ISolution solution,
-        ITreeNode selectedTreeNode,
+        ITreeNode? selectedTreeNode,
         INavigationOptionsFactory navigationOptionsFactory
     );
 }

@@ -9,6 +9,7 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.Util;
 using ReSharper.MediatorPlugin.Diagnostics;
+using ReSharper.MediatorPlugin.ReSharper.Psi.Tree;
 using ReSharper.MediatorPlugin.Services.Find;
 using ReSharper.MediatorPlugin.Services.Navigation;
 
@@ -81,14 +82,12 @@ public sealed class GoToHandlerAction : ContextActionBase
     private static IIdentifier? GetSelectedMediatrRequest(LanguageIndependentContextActionDataProvider dataProvider)
     {
         var selectedTreeNode = dataProvider.GetSelectedTreeNode<ITreeNode>();
-        
-        if (selectedTreeNode is IIdentifier identifier)
-        {
-            Logger.Instance.Log(LoggingLevel.VERBOSE, $"Selected tree node is an identifier: {identifier.Name}");
-            return identifier;
-        }
 
-        Logger.Instance.Log(LoggingLevel.VERBOSE, "Selected tree node is not an identifier");
-        return null;
+        IIdentifier? identifier = MediatorCallSite.ResolveRequestIdentifier(selectedTreeNode);
+
+        if (identifier is null)
+            Logger.Instance.Log(LoggingLevel.VERBOSE, "Selected tree node is not a Mediator request or dispatch call");
+
+        return identifier;
     }
 }

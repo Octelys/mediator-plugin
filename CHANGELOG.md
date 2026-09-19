@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 26.09.04XX
+- "Go to Handler" now also works with the caret anywhere inside a `mediator.Send(...)` /
+  `Publish(...)` call: the first argument's type is resolved, so there is no need to navigate to the
+  request declaration first.
+- Raise the inheritor search cap from 50 to 300 so solutions with many handlers no longer have the
+  matching handler truncated away before it can be selected.
+
 ## 26.08.20XX
 - Fix issue #117: updated SDK to 2026.2.
 
