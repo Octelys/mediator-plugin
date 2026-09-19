@@ -25,7 +25,7 @@ namespace Octelys.MediatorPlugin.Tests;
 /// </summary>
 [TestNetCoreLatest]
 [TestReferences("System.Runtime")]
-public abstract class GoToHandlerCaretTestsBase : BaseTestWithTextControl
+public abstract class MediatrGoToHandlerCaretTestsBase : BaseTestWithTextControl
 {
     private static readonly string[] TestsExpectingNoHandler =
     {
