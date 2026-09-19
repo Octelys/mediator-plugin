@@ -31,3 +31,5 @@ _dotTrace*
 
 # NuGet tools
 .nuget/
+
+**/TestResult.xml
