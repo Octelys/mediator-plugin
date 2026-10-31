@@ -4,6 +4,7 @@ using JetBrains.Diagnostics;
 using JetBrains.DocumentModel;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.ContextActions;
+using JetBrains.ReSharper.Feature.Services.CSharp.ContextActions;
 using JetBrains.ReSharper.Feature.Services.LiveTemplates.Scope;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.ExtensionsAPI.Tree;
@@ -12,7 +13,6 @@ using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.TextControl;
 using JetBrains.Util;
 using ReSharper.MediatorPlugin.Diagnostics;
-using ReSharper.MediatorPlugin.ReSharper.Psi.Tree;
 using ReSharper.MediatorPlugin.Services;
 using ReSharper.MediatorPlugin.Services.MediatR;
 
@@ -22,7 +22,7 @@ namespace ReSharper.MediatorPlugin.Actions
     (
         Name = "Create HandlR",
         Description = "Creates MediatR handler matching the selected request",
-        Group = "C#",
+        GroupType = typeof(CSharpContextActions),
         Disabled = false,
         Priority = 2
     )]
@@ -31,7 +31,7 @@ namespace ReSharper.MediatorPlugin.Actions
         private readonly LanguageIndependentContextActionDataProvider _dataProvider;
         private readonly ILibrary _mediatR;
 
-        private readonly IIdentifier _mediatrRequestIdentifier;
+        private readonly IIdentifier? _mediatrRequestIdentifier;
 
         public override string Text => "Create HandlR";
 
@@ -65,7 +65,7 @@ namespace ReSharper.MediatorPlugin.Actions
         {
             Logger.Instance.Log(LoggingLevel.VERBOSE, "IsAvailable");
 
-            return _mediatrRequestIdentifier is not NullIdentifier;
+            return _mediatrRequestIdentifier is not null;
         }
 
         protected override Action<ITextControl> ExecutePsiTransaction
@@ -97,7 +97,7 @@ namespace ReSharper.MediatorPlugin.Actions
             }
         }
 
-        private IIdentifier GetSelectedMediatrRequest(IContextActionDataProvider dataProvider)
+        private IIdentifier? GetSelectedMediatrRequest(IContextActionDataProvider dataProvider)
         {
             if (dataProvider.GetSelectedElement<ITreeNode>() is not IIdentifier someIdentifier)
             {
@@ -106,13 +106,13 @@ namespace ReSharper.MediatorPlugin.Actions
                     LoggingLevel.VERBOSE,
                     $"The selected tree node is not an instance of {nameof(IIdentifier)}."
                 );
-                return new NullIdentifier(dataProvider.PsiModule);
+                return null;
             }
 
             if (!_mediatR.IsSupported(someIdentifier))
             {
                 Logger.Instance.Log(LoggingLevel.VERBOSE, "The selected tree node is not mediatR request.");
-                return new NullIdentifier(dataProvider.PsiModule);
+                return null;
             }
 
             return someIdentifier;

@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 26.10.31XX
+- Fix ReSharper 2026.3 plugin-verifier incompatibilities: removed the hand-rolled `NullIdentifier`
+  `ITreeNode` implementation (it lacked the new `GetChameleonState()` member) and moved
+  `GoToHandlerAction` off the obsolete `ActionAttribute` constructor. `CreateHandlrContextAction`
+  now uses `GroupType` instead of the obsolete `ContextActionAttribute.Group`.
+
 ## 26.09.19XX
 - Updated SDK to 2026.3-EAP2 for early ReSharper/Rider 2026.3 compatibility.
 - "Go to Handler" now also works with the caret anywhere inside a `mediator.Send(...)` /

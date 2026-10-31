@@ -8,14 +8,20 @@ using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
 using JetBrains.ReSharper.Psi.Tree;
 using ReSharper.MediatorPlugin.Diagnostics;
 using ReSharper.MediatorPlugin.ReSharper.Psi.Tree;
+using ReSharper.MediatorPlugin.Resources;
 using ReSharper.MediatorPlugin.Services.Find;
 using ReSharper.MediatorPlugin.Services.Navigation;
 
 namespace ReSharper.MediatorPlugin.Actions;
 
-#pragma warning disable CS0612
-[Action("GoToHandlerAction", "Go to Handler", ShortcutScope = ShortcutScope.TextEditor, DefaultShortcutText = "Alt+H")]
-#pragma warning restore CS0612
+[Action
+(
+    typeof(Strings),
+    nameof(Strings.GoToHandlerActionText),
+    ActionId = "GoToHandlerAction",
+    ShortcutScope = ShortcutScope.TextEditor,
+    DefaultShortcutText = "Alt+H"
+)]
 public class GoToHandlerNavigationAction : IExecutableAction
 {
     private readonly IHandlerSelector _handlerSelector = new HandlerSelector();
